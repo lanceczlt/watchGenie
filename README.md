@@ -1,2 +1,8 @@
-# watchGenie
+# WatchGenie
 WatchGenie is a recommendation website for users to find recommendations for movies to watch. The system is expected to offer relevant recommendations and aims to give users movie recommendations that the users will enjoy. WatchGenie condenses the watch preferences of users using graphs and feedback from users to improve recommendations for other users. 
+
+This web-application’s goal is to not only provide new and interesting movie recommendations, but also to save the user time and energy in the long run. Instead of having to search through long and non-user-specific lists of movies, the user is immediately provided with options that the system finds most fitting. It is also common that users might have a hard time deciding which of the movies they’re interested in watching. This will also facilitate that process and make it easier for the user to move past that problem.
+
+The system is designed to be continuously updated and dynamic so that the recommendations provided for each user can be adjusted as time goes on. By allowing the user to continuously provide feedback on the recommended movies that we provide, we will be able to further improve the user experience and accuracy of our recommendations. Not only that, but we also allow users to adjust or remove their previous review/feedback in case their opinion of any movie changes. These features will allow the system and algorithm to keep up with the user changes frequently and avoid having a static, shallow understanding of each user.
+
+Additionally, it is scientifically proven that providing personalized products designated towards the user themselves promotes user attention, interest, and trust. Allowing users to know that our recommendations are made specifically for them will promote the usage and popularity of our software. The system will also provide interesting data informatics about the user’s own data in order to demonstrate the personalization aspect.
