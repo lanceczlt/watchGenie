@@ -19,10 +19,10 @@ def create_app():
     return app
 
 def create_database():
-    user = "CREATE TABLE IF NOT EXISTS moviegenie.User ( user_id int(20) NOT NULL, first_name char(50), last_name char(50), email varchar(300), password varchar(50), age int(20), PRIMARY KEY (user_id));"
-    movie = "CREATE TABLE IF NOT EXISTS moviegenie.Movie ( movie_id int(20) NOT NULL, title varchar(300), genres varchar(500), PRIMARY KEY (movie_id));"
-    rating = "CREATE TABLE IF NOT EXISTS moviegenie.Rating ( user_id int(20) NOT NULL, movie_id int(20), rating int, PRIMARY KEY (user_id));"
-    link = "CREATE TABLE IF NOT EXISTS moviegenie.Link ( movie_id int(20) NOT NULL, imdb_id int(20), tmdb_id int, PRIMARY KEY (movie_id));"
+    user = "CREATE TABLE IF NOT EXISTS moviegenie.user ( user_id int(20) NOT NULL, first_name char(50), last_name char(50), email varchar(300), password varchar(50), age int(20), PRIMARY KEY (user_id));"
+    movie = "CREATE TABLE IF NOT EXISTS moviegenie.movie ( movie_id int(20) NOT NULL, title varchar(300), genres varchar(500), PRIMARY KEY (movie_id));"
+    rating = "CREATE TABLE IF NOT EXISTS moviegenie.rating ( user_id int(20) NOT NULL, movie_id int(20), rating int, PRIMARY KEY (user_id));"
+    link = "CREATE TABLE IF NOT EXISTS moviegenie.link ( movie_id int(20) NOT NULL, imdb_id int(20), tmdb_id int, PRIMARY KEY (movie_id));"
 
     cursor.execute(user)
     cursor.execute(movie)
