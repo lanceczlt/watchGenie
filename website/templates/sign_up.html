@@ -1,74 +1,58 @@
-<head>
-  <meta charset="utf-8">
-  <title>HTML CSS Register Form</title>
-  <link rel="stylesheet" href="../static/sign_up.css">
-</head>
-
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-  %}
-    <form class="signup-form" method="post">
-      <!-- form header -->
-      <div class="form-header">
-        <h1>Create Account</h1>
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+    content %}
+    <form method="POST">
+      <h3 align="center">Sign Up</h3>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter email"
+        />
       </div>
-
-      <!-- form body -->
-      <div class="form-body">
-
-        <!-- Firstname and Lastname -->
-        <div class="horizontal-group">
-          <div class="form-group left">
-            <label for="firstName" class="label-title1">First name *</label>
-            <input type="text" id="firstName" class="form-input" placeholder="enter your first name" required="required" />
-          </div>
-          <div class="form-group right">
-            <label for="lastName" class="label-title1">Last name</label>
-            <input type="text" id="lastName" class="form-input" placeholder="enter your last name" />
-          </div>
-        </div>
-
-        <!-- Email -->
-        <div class="form-group">
-          <label for="email" class="label-title1">Email*</label>
-          <input type="email" id="email" class="form-input" placeholder="enter your email" required="required">
-        </div>
-
-        <!-- Password and confirm password -->
-        <div class="horizontal-group">
-          <div class="form-group left">
-            <label for="password1" class="label-title1">Password *</label>
-            <input type="password" id="password1" class="form-input" placeholder="enter your password" required="required">
-          </div>
-          <div class="form-group right">
-            <label for="password2" class="label-title1">Confirm Password *</label>
-            <input type="password" class="form-input" id="password2" placeholder="enter your password again" required="required">
-          </div>
-        </div>
-
-        <!-- Gender and Age -->
-        <div class="horizontal-group">
-          <div class="form-group left">
-            <label class="label-title1">Gender:</label>
-            <div class="input-group">
-              <label for="male"><input type="radio" name="gender" value="male" id="male"> Male &nbsp; &nbsp;</label>
-              <label for="female"><input type="radio" name="gender" value="female" id="female"> Female</label>
-            </div>
-          </div>
-          <div class="form-group right">
-            <div class="form-group right">
-              <label for="experience" class="label-title1">Age</label>
-              <input type="number" min="1" max="100"  value="18" class="form-input">
-            </div>
-          </div>
-          </div>
-        </div>
-
-      <!-- form-footer -->
-      <div class="form-footer">
-        <span>* required</span>
-        <button type="submit" class="btn">Submit</button>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          name="firstName"
+          placeholder="Enter first name"
+        />
       </div>
-
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          name="lastName"
+          placeholder="Enter last name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password1">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password1"
+          name="password1"
+          placeholder="Enter password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password2">Password (Confirm)</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password2"
+          name="password2"
+          placeholder="Re-enter password"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-{% endblock %}
+    {% endblock %}

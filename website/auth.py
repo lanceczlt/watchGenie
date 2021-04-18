@@ -1,41 +1,36 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from .db_connection import connect
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
+from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
-connect, cursor = connect()
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    
-    if 'logged_in' in session:
-        logout()
-
     if request.method == 'POST':
-
         email = request.form.get('email')
         password = request.form.get('password')
 
-        cursor.execute("SELECT * FROM user WHERE email = %s", email)
-        user = cursor.fetchone()
-        print(user)
+        user = User.query.filter_by(email = email).first()
         if user:
-            if password == user['password']:
-                session['logged_in'] = True
-                session['id'] = user['user_id']
-                session['username'] = email
-                flash('You have logged in!', category='success')
+            if check_password_hash(user.password,password):
+                flash('Logged in successfully!', category='success')
+                # logs user in and remembers them 
+                login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, please try again.', category='error')
         else:
-            flash('Email does not exist, please try again.', category='error')     
-    return render_template("login.html")
+             flash('Email does not exist, please try again.', category='error')
+
+    return render_template("login.html", user = current_user)
 
 @auth.route('/logout')
+@login_required
 def logout():
-    session.pop('logged_in', None)
-    session.pop('id', None)
-    session.pop('username', None)
+    logout_user()
     return redirect(url_for('auth.login'))
 
 @auth.route('/sign_up', methods=['GET', 'POST'])
@@ -46,11 +41,8 @@ def sign_up():
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
-        age = request.form.get('age')
 
-        cursor.execute("SELECT * FROM user WHERE email = %s", email)
-        user = cursor.fetchone()
-
+        user = User.query.filter_by(email = email).first()
         if user:
             flash('Email already exists.', category='error')
         elif len(email) < 4:
@@ -64,11 +56,10 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            cursor.execute("SELECT MAX(user_id) as max FROM moviegenie.user")
-            new_id = cursor.fetchone()[0] + 1
-            cursor.execute("INSERT INTO moviegenie.user (user_id, first_name, last_name, email, password, age) VALUES (%s, %s, %s, %s, %s, %s)", (new_id, first_name, last_name, email, password1, age))
-            connect.commit()
+            new_user = User(email = email, first_name = first_name, last_name =last_name, password = generate_password_hash(password1,method ='sha256'))
+            db.session.add(new_user)
+            db.session.commit()
             flash('Account created!', category='success')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('views.home'))
 
-    return render_template("sign_up.html")
+    return render_template("sign_up.html", user = current_user)

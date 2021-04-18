@@ -1,46 +1,21 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
-<h1 align="center">Let's learn more about you!</h1>
-<form align ="center", method="POST">
-  <li class="rating">
-    <input type="radio" name="rating" value="0" checked /><span class="hide"></span>
-    <input type="radio" name="rating" value="1" /><span></span>
-    <input type="radio" name="rating" value="2" /><span></span>
-    <input type="radio" name="rating" value="3" /><span></span>
-    <input type="radio" name="rating" value="4" /><span></span>
-    <input type="radio" name="rating" value="5" /><span></span>
-</li>
-<li class="rating">
-  <input type="radio" name="rating" value="0" checked /><span class="hide"></span>
-  <input type="radio" name="rating" value="1" /><span></span>
-  <input type="radio" name="rating" value="2" /><span></span>
-  <input type="radio" name="rating" value="3" /><span></span>
-  <input type="radio" name="rating" value="4" /><span></span>
-  <input type="radio" name="rating" value="5" /><span></span>
-</li>
-<li class="rating">
-  <input type="radio" name="rating" value="0" checked /><span class="hide"></span>
-  <input type="radio" name="rating" value="1" /><span></span>
-  <input type="radio" name="rating" value="2" /><span></span>
-  <input type="radio" name="rating" value="3" /><span></span>
-  <input type="radio" name="rating" value="4" /><span></span>
-  <input type="radio" name="rating" value="5" /><span></span>
-</li>
-<li class="rating">
-  <input type="radio" name="rating" value="0" checked /><span class="hide"></span>
-  <input type="radio" name="rating" value="1" /><span></span>
-  <input type="radio" name="rating" value="2" /><span></span>
-  <input type="radio" name="rating" value="3" /><span></span>
-  <input type="radio" name="rating" value="4" /><span></span>
-  <input type="radio" name="rating" value="5" /><span></span>
-</li>
-<li class="rating">
-  <input type="radio" name="rating" value="0" checked /><span class="hide"></span>
-  <input type="radio" name="rating" value="1" /><span></span>
-  <input type="radio" name="rating" value="2" /><span></span>
-  <input type="radio" name="rating" value="3" /><span></span>
-  <input type="radio" name="rating" value="4" /><span></span>
-  <input type="radio" name="rating" value="5" /><span></span>
-</li>
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
 </form>
 {% endblock %}

@@ -1,12 +1,16 @@
-from flask import Flask, session
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from os import path
-from .db_connection import connect
+from flask_login import LoginManager
 
-connect, cursor = connect()
+db = SQLAlchemy()
+DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'magic'
+    app.config['SECRET_KEY'] = 'magicwish'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    db.init_app(app)
 
     from .views import views
     from .auth import auth
@@ -14,18 +18,21 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    create_database()
+    from .models import User, Note
+
+    create_database(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     return app
 
-def create_database():
-    user = "CREATE TABLE IF NOT EXISTS moviegenie.User ( user_id int(20) NOT NULL, first_name char(50), last_name char(50), email varchar(300), password varchar(50), age int(20), PRIMARY KEY (user_id));"
-    movie = "CREATE TABLE IF NOT EXISTS moviegenie.Movie ( movie_id int(20) NOT NULL, title varchar(300), genres varchar(500), PRIMARY KEY (movie_id));"
-    rating = "CREATE TABLE IF NOT EXISTS moviegenie.Rating ( user_id int(20) NOT NULL, movie_id int(20), rating int, PRIMARY KEY (user_id));"
-    link = "CREATE TABLE IF NOT EXISTS moviegenie.Link ( movie_id int(20) NOT NULL, imdb_id int(20), tmdb_id int, PRIMARY KEY (movie_id));"
-
-    cursor.execute(user)
-    cursor.execute(movie)
-    cursor.execute(rating)
-    cursor.execute(link)
-    connect.commit()
+def create_database(app):
+    if not path.exists('website/' + DB_NAME):
+        db.create_all(app=app)
+        print('Created Database!')
