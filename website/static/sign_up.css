@@ -130,10 +130,10 @@ input[type="file"] {
     font-size: 17px;
     border: none;
     border-radius: 5px;
-    color: #bcf5e7;
+    color: slateblue;
     cursor: pointer;
 }
 .btn:hover {
-    background-color: #169c7b;
+    background-color: darkslateblue;
     color: white;
 }

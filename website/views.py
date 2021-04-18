@@ -10,3 +10,7 @@ def home():
         return render_template("home.html")
     else:
         return redirect(url_for('auth.login'))
+
+@views.route('/search', methods=['GET', 'POST'])
+def search():
+    return render_template("search.html")
