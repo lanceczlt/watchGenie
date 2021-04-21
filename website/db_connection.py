@@ -11,3 +11,4 @@ def connect():
     except:
         print('Could not connect to database')
         return None
+

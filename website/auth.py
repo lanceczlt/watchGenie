@@ -15,7 +15,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        cursor.execute("SELECT * FROM user WHERE email = %s", email)
+        cursor.execute("SELECT * FROM moviegenie.users WHERE email = %s", email)
         user = cursor.fetchone()
         print(user)
         if user:
@@ -42,15 +42,16 @@ def logout():
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
+        print(email)
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         age = request.form.get('age')
-
-        cursor.execute("SELECT * FROM user WHERE email = %s", email)
+        gender = request.form.get('gender')
+        cursor.execute("SELECT * FROM moviegenie.users WHERE email = %s", email)
         user = cursor.fetchone()
-
+        print()
         if user:
             flash('Email already exists.', category='error')
         elif len(email) < 4:
@@ -64,9 +65,9 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            cursor.execute("SELECT MAX(user_id) as max FROM moviegenie.user")
-            new_id = cursor.fetchone()[0] + 1
-            cursor.execute("INSERT INTO moviegenie.user (user_id, first_name, last_name, email, password, age) VALUES (%s, %s, %s, %s, %s, %s)", (new_id, first_name, last_name, email, password1, age))
+            cursor.execute("SELECT MAX(user_id) as max FROM moviegenie.users")
+            new_id = cursor.fetchone()['max'] + 1
+            cursor.execute("INSERT INTO moviegenie.users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)", (new_id, first_name, last_name, email, password1, age, gender))
             connect.commit()
             flash('Account created!', category='success')
             return redirect(url_for('auth.login'))
