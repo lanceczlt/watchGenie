@@ -8,7 +8,7 @@ connect, cursor = connect()
 recommend = Blueprint('recommend', __name__)
 
 @recommend.route('/recommend', methods=['GET','POST'])
-def recommend():
+def recommend(user_id):
     if request.method == 'POST':
         return render_template("recommendation.html")         
     return render_template("recommendation.html")
@@ -27,5 +27,14 @@ def plot_based_rec():
 def collaboration_based_rec():
     return None
 
-
+def searchMovies(movie_title):
+    cursor.execute('SELECT DISTINCT movies.title, links.imdb_id from movies, links WHERE links.movie_id = movies.movie_id AND movies.title LIKE %s', ("%" + str(title) + "%"))
+    return cursor.fetchall()
+    
+def getTopMovies(genres):
+    query = "SELECT DISTINCT movie_id FROM moviegenie.movies WHERE movies.genres LIKE '%s' AND movies.genres LIKE '%s' AND movies.genres LIKE '%s'"
+    cursor.execute(query, ("%"+ genres[0] +"%", "%"+ genres[1] +"%", "%"+ genres[2] +"%"))
+    df = df(cursor.fetchall())
+    df.columns = cursor.column_names
+    return df
 
