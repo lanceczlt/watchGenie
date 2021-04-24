@@ -8,15 +8,15 @@
 /* Register Form */
 /*---------------------------------------*/
 body {
-  background:linear-gradient(to right, #78a7ba 0%, #385D6C 50%, #78a7ba 99%);
+  background:linear-gradient(to right, black 0%, darkslateblue 50%, black 99%);
 }
 
 .signup-form {
   font-family: "Roboto", sans-serif;
   width:650px;
-  margin:30px auto;
+  margin: 200px auto;
   background:linear-gradient(to right, #ffffff 0%, #fafafa 50%, #ffffff 99%);
-  border-radius: 10px;
+  border-radius: 16px;
 }
 
 /*---------------------------------------*/
@@ -107,7 +107,7 @@ input[type="file"] {
 /* Form Footer */
 /*---------------------------------------*/
 .signup-form .form-footer  {
-  background-color: #EFF0F1;
+  background-color: darkslateblue;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   padding:10px 40px;
@@ -123,17 +123,17 @@ input[type="file"] {
     font-style: italic;
     font-weight: thin;
 }
-.btn {
+.btnSUBMIT {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #1bba93;
+    background-color: lightsalmon;
     font-size: 17px;
     border: none;
     border-radius: 5px;
-    color: slateblue;
+    color: white;
     cursor: pointer;
 }
-.btn:hover {
-    background-color: darkslateblue;
+.btnSUBMIT:hover {
+    background-color:salmon;
     color: white;
 }

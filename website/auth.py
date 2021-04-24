@@ -6,9 +6,8 @@ connect, cursor = connect()
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    
-    if 'logged_in' in session:
-        logout()
+    if 'username' in session:
+        return render_template("landing.html")
 
     if request.method == 'POST':
 
@@ -24,7 +23,7 @@ def login():
                 session['id'] = user['user_id']
                 session['username'] = email
                 flash('You have logged in!', category='success')
-                return redirect(url_for('views.home'))
+                return redirect(url_for('views.search'))
             else:
                 flash('Incorrect password, please try again.', category='error')
         else:
@@ -40,6 +39,9 @@ def logout():
 
 @auth.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
+    if 'username' in session:
+        return render_template("landing.html")
+
     if request.method == 'POST':
         email = request.form.get('email')
         print(email)

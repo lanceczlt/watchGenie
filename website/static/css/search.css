@@ -13,20 +13,13 @@ html {
  * Remove the margin in all browsers (opinionated).
  */
 body {
-  margin: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;   
 }
 
-/**
- * Add the correct display in IE 9-.
- */
-article,
-aside,
-footer,
-header,
-nav,
-section {
-  display: block;
-}
 
 /**
  * Correct the font size and margin on `h1` elements within `section` and
@@ -379,17 +372,6 @@ textarea {
   /* 1 */
   font: inherit;
   /* 2 */
-}
-
-/* Interactive
-   ========================================================================== */
-/*
- * Add the correct display in IE 9-.
- * 1. Add the correct display in Edge, IE, and Firefox.
- */
-details,
-menu {
-  display: block;
 }
 
 /*
@@ -818,7 +800,6 @@ legend {
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
-  background: url("../images/Searchs_008.png");
   background-size: cover;
   padding: 15px;
   font-family: 'Roboto', sans-serif;
@@ -876,7 +857,7 @@ legend {
   min-width: 100px;
   height: 40px;
   padding: 0 15px;
-  background: #e45c27;
+  background: lightsalmon;
   white-space: nowrap;
   border-radius: 3px;
   font-size: 14px;
@@ -888,14 +869,14 @@ legend {
 }
 
 .s008 form .inner-form .input-field .btn-search:hover {
-  background: #d7501b;
+  background: salmon;
 }
 
 .s008 form .inner-form .input-field .btn-delete {
   min-width: 100px;
   height: 40px;
   padding: 0 15px;
-  background: transparent;
+  background: lightcoral;
   white-space: nowrap;
   border-radius: 3px;
   font-size: 14px;
@@ -907,12 +888,12 @@ legend {
 }
 
 .s008 form .inner-form .input-field .btn-delete:hover {
-  color: #fff;
+  color: coral;
 }
 
 .s008 form .inner-form .basic-search {
   margin-bottom: 5px;
-  box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 8px 20px 0px rgb(255, 255, 255);
 }
 
 .s008 form .inner-form .basic-search .input-field {
@@ -920,10 +901,14 @@ legend {
 }
 
 .s008 form .inner-form .basic-search .input-field input {
+  color: darkslateblue;
+  font-weight: bold;
+  background: white;
   padding: 10px 80px 10px 40px;
 }
 
 .s008 form .inner-form .basic-search .input-field .icon-wrap {
+  background: white;
   position: absolute;
   top: 0;
   right: 0;
@@ -936,13 +921,14 @@ legend {
 }
 
 .s008 form .inner-form .basic-search .input-field .icon-wrap svg {
+  background: white;
   width: 34px;
   height: 34px;
   fill: #ccc;
 }
 
 .s008 form .inner-form .advance-search {
-  background: #000;
+  background: white;
   padding: 40px;
   border-radius: 3px;
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
@@ -950,7 +936,7 @@ legend {
 
 .s008 form .inner-form .advance-search .desc {
   font-size: 15px;
-  color: #999;
+  color: rgb(165, 156, 156);
   display: block;
   margin-bottom: 26px;
 }
@@ -1015,7 +1001,7 @@ legend {
   border: 0;
   border-bottom: 2px solid #ccc;
   height: 100%;
-  color: #fff;
+  color:  darkslateblue;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -1033,6 +1019,9 @@ legend {
       align-items: center;
   height: 100%;
   padding-top: 10px;
+  color:  darkslateblue;
+  font-size: 17px;
+  font-weight: bold;
 }
 
 .s008 form .inner-form .advance-search .choices__inner .choices__item.choices__item--selectable.choices__placeholder {
@@ -1051,12 +1040,12 @@ legend {
   -ms-flex-align: center;
       align-items: center;
   height: 100%;
-  color: #fff;
+  color: darkslateblue;
 }
 
 .s008 form .inner-form .advance-search .choices__list.choices__list--dropdown {
   border: 0;
-  background: #000;
+  background: white;
   padding: 20px 30px;
   margin-top: 2px;
   border-radius: 4px;
@@ -1069,7 +1058,7 @@ legend {
 
 .s008 form .inner-form .advance-search .choices__list--dropdown .choices__item--selectable.is-highlighted {
   background: transparent;
-  color: #e45c27;
+  color: darkslateblue;
 }
 
 .s008 form .inner-form .advance-search .choices__list--dropdown .choices__item {

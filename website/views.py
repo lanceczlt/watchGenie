@@ -9,17 +9,14 @@ views = Blueprint('views', __name__)
 connect, cursor = connect()
 
 @views.route('/', methods=['GET', 'POST'])
-def home():
-    if 'username' in session:
-        return render_template("home.html")
-    else:
-        return redirect(url_for('auth.login'))
+def landing():
+    return render_template("landing.html")
+
 
 @views.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
         movie_id = request.form['movie']
-        
     else:
         return render_template("search.html")
 
