@@ -6,9 +6,9 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['TESTING'] = False
 app.config['MAIL_SERVER'] = 'stmp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] =  False
 #app.config['MAIL_DEBUG'] = True 
 app.config['MAIL_USERNAME'] = 'superjirachi123@gmail.com'
 #add password for email later
@@ -23,10 +23,8 @@ mail = Mail(app)
 @app.route('/notify')
 def index():
     msg = Message('Hey There, here is your movie recommendation of the week!', recipients=['llc52@case.edu'])
+    msg.body = 'This is a test email'
     mail.send(msg)
 
     return 'Message has been sent!'
-
-if __name__ == '__main__':
-    app.run()
 
