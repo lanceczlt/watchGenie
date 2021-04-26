@@ -4,6 +4,7 @@ from .db_connection import connect
 auth = Blueprint('auth', __name__)
 connect, cursor = connect()
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
@@ -14,7 +15,8 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        cursor.execute("SELECT * FROM moviegenie.users WHERE email = %s", email)
+        cursor.execute(
+            "SELECT * FROM moviegenie.users WHERE email = %s", email)
         user = cursor.fetchone()
         print(user)
         if user:
@@ -27,8 +29,10 @@ def login():
             else:
                 flash('Incorrect password, please try again.', category='error')
         else:
-            flash('Email does not exist, please try again.', category='error')     
-    return render_template("login.html")
+            flash('Email does not exist, please try again.', category='error')
+    else:
+        return render_template("login.html")
+
 
 @auth.route('/logout')
 def logout():
@@ -36,6 +40,7 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     return redirect(url_for('auth.login'))
+
 
 @auth.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
@@ -51,7 +56,8 @@ def sign_up():
         password2 = request.form.get('password2')
         age = request.form.get('age')
         gender = request.form.get('gender')
-        cursor.execute("SELECT * FROM moviegenie.users WHERE email = %s", email)
+        cursor.execute(
+            "SELECT * FROM moviegenie.users WHERE email = %s", email)
         user = cursor.fetchone()
         print()
         if user:
@@ -69,9 +75,10 @@ def sign_up():
         else:
             cursor.execute("SELECT MAX(user_id) as max FROM moviegenie.users")
             new_id = cursor.fetchone()['max'] + 1
-            cursor.execute("INSERT INTO moviegenie.users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)", (new_id, first_name, last_name, email, password1, age, gender))
+            cursor.execute("INSERT INTO moviegenie.users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                           (new_id, first_name, last_name, email, password1, age, gender))
             connect.commit()
             flash('Account created!', category='success')
             return redirect(url_for('auth.login'))
-
-    return render_template("sign_up.html")
+    else:
+        return render_template("sign_up.html")
