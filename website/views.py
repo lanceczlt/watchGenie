@@ -24,9 +24,12 @@ def search():
 def result():
     if request.method =='GET':
         cursor.execute(
-            "SELECT title FROM moviegenie.movies WHERE moviegenie.title = %s "
+            "SELECT title FROM moviegenie.movies JOIN moviegenie.links WHERE moviegenie.title = %s "
             )
     results = cursor.fetchmany(10)
+    
+
+
 
     
     
