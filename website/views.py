@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request, flash, jsonify, session, redirect, url_for, session
 import json
+from db_connection import connect
 
 
 views = Blueprint('views', __name__)
+connection, cursor = connect()
 
 @views.route('/', methods=['GET', 'POST'])
 def home():
@@ -13,9 +15,6 @@ def home():
 
 @views.route('/search', methods=['GET', 'POST'])
 def search():
-<<<<<<< Updated upstream
-    return render_template("search.html")
-=======
     if request.method == 'POST':
         movie_id = request.form['movie']
     else:
@@ -24,9 +23,10 @@ def search():
 @views.route('/result', methods=['GET', 'POST'])
 def result():
     if request.method =='GET':
-        cursor.execute("SELECT title FROM moviegenie.movies WHERE moviegenie.title = %s ")
+        cursor.execute(
+            "SELECT title FROM moviegenie.movies WHERE moviegenie.title = %s "
+            )
     results = cursor.fetchmany(10)
-
     if request.method == 'POST':
         movie_id = request.form['movie']
 
@@ -38,5 +38,4 @@ def result():
 
 
         
->>>>>>> Stashed changes
 
