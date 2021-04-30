@@ -27,11 +27,11 @@ def result():
             "SELECT title FROM moviegenie.movies WHERE moviegenie.title = %s "
             )
     results = cursor.fetchmany(10)
-    if request.method == 'POST':
-        movie_id = request.form['movie']
 
-    else:
-        return render_template("movie_result.html")
+    
+    
+    return render_template("movie_result.html")
+
 
 
 
