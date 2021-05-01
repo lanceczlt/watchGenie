@@ -7,14 +7,9 @@ connect, cursor = connect()
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if 'username' in session:
-        return render_template("landing.html")
-
     if request.method == 'POST':
-
         email = request.form.get('email')
         password = request.form.get('password')
-
         cursor.execute(
             "SELECT * FROM moviegenie.users WHERE email = %s", email)
         user = cursor.fetchone()
@@ -31,7 +26,10 @@ def login():
         else:
             flash('Email does not exist, please try again.', category='error')
     else:
-        return render_template("login.html")
+        if 'username' in session:
+            return render_template("landing.html")
+        else:
+            return render_template("login.html")
 
 
 @auth.route('/logout')
