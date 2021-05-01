@@ -2,8 +2,8 @@ CREATE TABLE IF NOT EXISTS movie_genre(
    movie_id INTEGER  NOT NULL
   ,genre_id INTEGER  NOT NULL
   ,PRIMARY KEY(movie_id,genre_id)
-  ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
-  ,FOREIGN KEY (genre_id) REFERENCES genres(genre_id)
+  ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
+  ,FOREIGN KEY (genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE
 );
 
 INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES

@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS ratings(
   ,rating      INTEGER  NOT NULL
   ,rating_date DATETIME  NOT NULL
   ,PRIMARY KEY(user_id,movie_id)
+  ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
+  ,FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 INSERT IGNORE INTO ratings(user_id,movie_id,rating,rating_date) VALUES
