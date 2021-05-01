@@ -871,7 +871,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return this;
 	    }
-
 	    /**
 	     * Show dropdown to user by adding active state class
 	     * @return {Object} Class instance

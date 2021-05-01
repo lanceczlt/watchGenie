@@ -2,9 +2,11 @@ CREATE TABLE IF NOT EXISTS movie_genre(
    movie_id INTEGER  NOT NULL
   ,genre_id INTEGER  NOT NULL
   ,PRIMARY KEY(movie_id,genre_id)
+  ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
+  ,FOREIGN KEY (genre_id) REFERENCES genres(genre_id)
 );
 
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (862,16)
 ,(862,35)
 ,(862,10751)
@@ -505,7 +507,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(76,10749)
 ,(11017,35)
 ,(37141,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (37141,53)
 ,(9382,35)
 ,(9382,18)
@@ -1006,7 +1008,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(46924,18)
 ,(46924,35)
 ,(46924,14);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (11041,35)
 ,(306,28)
 ,(306,35)
@@ -1507,7 +1509,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(10112,35)
 ,(10112,10751)
 ,(10112,12);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (4307,18)
 ,(4307,10749)
 ,(46029,35)
@@ -2008,7 +2010,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(23945,35)
 ,(23945,10751)
 ,(37820,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (22479,53)
 ,(22479,18)
 ,(22479,10402)
@@ -2509,7 +2511,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(26282,10749)
 ,(37218,10752)
 ,(37218,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (37218,10749)
 ,(37218,28)
 ,(252,10751)
@@ -3010,7 +3012,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(8077,27)
 ,(814,27)
 ,(814,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (41671,27)
 ,(27214,27)
 ,(27214,53)
@@ -3511,7 +3513,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(45671,18)
 ,(45671,10749)
 ,(45671,14);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (17770,35)
 ,(17770,10749)
 ,(15170,12)
@@ -4012,7 +4014,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(102732,10749)
 ,(30949,9648)
 ,(30949,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (30949,18)
 ,(30949,10749)
 ,(30949,80)
@@ -4513,7 +4515,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(928,35)
 ,(928,27)
 ,(928,14);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (9340,12)
 ,(9340,35)
 ,(9340,10751)
@@ -5014,7 +5016,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(51942,18)
 ,(51942,35)
 ,(51942,16);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (46702,18)
 ,(46702,10749)
 ,(54795,35)
@@ -5515,7 +5517,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(1374,18)
 ,(1375,18)
 ,(15196,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (15196,53)
 ,(15196,80)
 ,(15196,9648)
@@ -6016,7 +6018,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(53862,35)
 ,(53862,10749)
 ,(17962,14);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (17962,18)
 ,(9460,28)
 ,(4927,35)
@@ -6517,7 +6519,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(30964,9648)
 ,(30964,53)
 ,(52366,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (6373,35)
 ,(6373,10749)
 ,(2162,28)
@@ -7018,7 +7020,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(19052,53)
 ,(21349,18)
 ,(21349,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (21349,10749)
 ,(1832,14)
 ,(1832,35)
@@ -7519,7 +7521,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(80471,18)
 ,(80471,10769)
 ,(49477,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (121940,18)
 ,(121940,28)
 ,(28156,27)
@@ -8020,7 +8022,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(41038,878)
 ,(879,12)
 ,(879,14);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (879,35)
 ,(879,10751)
 ,(32613,27)
@@ -8521,7 +8523,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(169,53)
 ,(865,28)
 ,(865,878);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (9663,28)
 ,(9663,12)
 ,(9663,10749)
@@ -9022,7 +9024,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(10685,9648)
 ,(10685,53)
 ,(1619,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (1619,80)
 ,(1619,18)
 ,(1619,53)
@@ -9523,7 +9525,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(18935,10751)
 ,(764,27)
 ,(20287,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (20287,80)
 ,(20287,18)
 ,(20287,53)
@@ -10024,7 +10026,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(88727,53)
 ,(88727,18)
 ,(26813,12);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (26813,18)
 ,(29572,18)
 ,(29572,10402)
@@ -10525,7 +10527,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(3543,35)
 ,(3543,18)
 ,(51321,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (9604,28)
 ,(9604,80)
 ,(24929,35)
@@ -11026,7 +11028,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(12610,35)
 ,(12610,10751)
 ,(1933,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (1933,18)
 ,(1933,9648)
 ,(1933,53)
@@ -11527,7 +11529,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(14584,53)
 ,(14584,80)
 ,(14584,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (58886,35)
 ,(58886,10769)
 ,(72277,18)
@@ -12028,7 +12030,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(43715,10749)
 ,(43715,878)
 ,(10052,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (11979,18)
 ,(11979,14)
 ,(11979,27)
@@ -12529,7 +12531,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(28384,10749)
 ,(28384,35)
 ,(28384,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (46691,18)
 ,(27094,18)
 ,(26725,53)
@@ -13030,7 +13032,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(206042,10749)
 ,(26895,18)
 ,(26895,10769);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (60608,18)
 ,(60608,10769)
 ,(97447,10402)
@@ -13531,7 +13533,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(11646,10752)
 ,(5062,80)
 ,(5062,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (5062,9648)
 ,(5062,53)
 ,(24634,18)
@@ -14032,7 +14034,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(14317,12)
 ,(14317,10751)
 ,(11022,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (11022,80)
 ,(11022,18)
 ,(11022,53)
@@ -14533,7 +14535,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(3426,10749)
 ,(3426,18)
 ,(3426,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (2984,35)
 ,(2984,10749)
 ,(33221,12)
@@ -15034,7 +15036,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(14676,37)
 ,(78281,10749)
 ,(78281,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (78281,9648)
 ,(21717,37)
 ,(29425,28)
@@ -15535,7 +15537,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(41206,53)
 ,(41206,80)
 ,(33954,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (33954,18)
 ,(48364,28)
 ,(48364,18)
@@ -16036,7 +16038,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(36855,35)
 ,(36855,10751)
 ,(20238,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (20238,10751)
 ,(20238,37)
 ,(33783,35)
@@ -16537,7 +16539,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(12395,12)
 ,(12395,80)
 ,(12395,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (12395,53)
 ,(9846,28)
 ,(9846,80)
@@ -17038,7 +17040,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(42514,35)
 ,(42514,18)
 ,(42514,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (20444,35)
 ,(17736,18)
 ,(114046,35)
@@ -17539,7 +17541,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(18329,10749)
 ,(17993,10749)
 ,(37447,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (4339,35)
 ,(4339,18)
 ,(4339,10769)
@@ -18040,7 +18042,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(13122,35)
 ,(13122,18)
 ,(13122,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (13122,9648)
 ,(13122,53)
 ,(55730,35)
@@ -18541,7 +18543,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(35151,14)
 ,(35151,18)
 ,(35151,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (35151,878)
 ,(35151,10749)
 ,(21544,35)
@@ -19042,7 +19044,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(45520,18)
 ,(45520,10749)
 ,(45520,10752);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (46767,18)
 ,(46767,27)
 ,(55848,18)
@@ -19543,7 +19545,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(5137,12)
 ,(11823,35)
 ,(11823,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (2003,18)
 ,(18804,18)
 ,(18804,10749)
@@ -20044,7 +20046,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(46910,28)
 ,(46910,10752)
 ,(43689,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (43689,18)
 ,(43689,10402)
 ,(43689,10749)
@@ -20545,7 +20547,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(24229,80)
 ,(24229,18)
 ,(24229,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (26031,80)
 ,(26031,18)
 ,(3763,27)
@@ -21046,7 +21048,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(18966,35)
 ,(18966,27)
 ,(30636,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (33665,18)
 ,(45169,18)
 ,(45169,9648)
@@ -21547,7 +21549,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(36288,53)
 ,(36288,35)
 ,(36288,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (36288,18)
 ,(38143,35)
 ,(38143,18)
@@ -22048,7 +22050,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(97206,53)
 ,(97206,9648)
 ,(101338,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (101338,10769)
 ,(23985,18)
 ,(2463,18)
@@ -22549,7 +22551,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(24092,27)
 ,(24092,53)
 ,(20357,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (20357,9648)
 ,(20357,53)
 ,(20357,27)
@@ -23050,7 +23052,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(39504,18)
 ,(14883,18)
 ,(11423,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (11423,18)
 ,(11423,53)
 ,(10694,35)
@@ -23551,7 +23553,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(42622,10751)
 ,(42622,14)
 ,(27495,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (19884,28)
 ,(19884,18)
 ,(47007,10749)
@@ -24052,7 +24054,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(29872,10402)
 ,(29872,10749)
 ,(85014,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (85014,35)
 ,(85014,14)
 ,(34856,28)
@@ -24553,7 +24555,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25199,10749)
 ,(25199,14)
 ,(25199,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (25199,10751)
 ,(53857,10749)
 ,(53857,35)
@@ -25054,7 +25056,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25763,12)
 ,(25763,878)
 ,(35580,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (35580,18)
 ,(35580,10752)
 ,(35580,10749)
@@ -25555,7 +25557,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(23957,18)
 ,(49653,18)
 ,(49653,10769);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (27344,80)
 ,(27344,12)
 ,(27344,18)
@@ -26056,7 +26058,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(8982,53)
 ,(956,12)
 ,(956,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (956,53)
 ,(36253,10402)
 ,(36253,35)
@@ -26557,7 +26559,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(35921,18)
 ,(15696,10752)
 ,(15696,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (15696,35)
 ,(15696,18)
 ,(15696,9648)
@@ -27058,7 +27060,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(50573,10751)
 ,(36922,36)
 ,(36922,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (36922,35)
 ,(43071,18)
 ,(43071,16)
@@ -27559,7 +27561,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(37725,14)
 ,(37725,10749)
 ,(40973,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (40973,18)
 ,(63460,28)
 ,(63460,18)
@@ -28060,7 +28062,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(14240,53)
 ,(14240,28)
 ,(14240,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (13574,35)
 ,(13574,18)
 ,(13574,10749)
@@ -28561,7 +28563,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(28742,10402)
 ,(9703,28)
 ,(9703,12);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (9703,14)
 ,(9703,10752)
 ,(22085,18)
@@ -29062,7 +29064,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(13998,18)
 ,(3902,18)
 ,(3902,10402);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (18631,18)
 ,(18631,53)
 ,(43308,37)
@@ -29563,7 +29565,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(8848,53)
 ,(8848,80)
 ,(8848,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (13460,28)
 ,(13460,53)
 ,(13460,878)
@@ -30064,7 +30066,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(72609,35)
 ,(117044,18)
 ,(117044,36);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (117044,10749)
 ,(114348,18)
 ,(95402,18)
@@ -30565,7 +30567,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(13107,18)
 ,(29568,18)
 ,(29568,10769);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (29568,10749)
 ,(13256,28)
 ,(13256,12)
@@ -31066,7 +31068,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(43985,18)
 ,(43985,35)
 ,(20065,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (20065,18)
 ,(20065,10749)
 ,(14089,10402)
@@ -31567,7 +31569,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(60542,10749)
 ,(60542,37)
 ,(162865,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (162865,10752)
 ,(47658,99)
 ,(47658,35)
@@ -32068,7 +32070,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(16991,18)
 ,(99283,35)
 ,(94854,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (94854,10402)
 ,(43396,18)
 ,(43396,53)
@@ -32569,7 +32571,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(49767,18)
 ,(49767,53)
 ,(49767,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (29314,35)
 ,(29314,18)
 ,(29314,10769)
@@ -33070,7 +33072,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(18440,878)
 ,(22602,28)
 ,(22602,37);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (40799,28)
 ,(40799,37)
 ,(40071,35)
@@ -33571,7 +33573,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(23202,27)
 ,(23202,53)
 ,(24001,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (22798,18)
 ,(23082,35)
 ,(23082,10749)
@@ -34072,7 +34074,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(34003,10751)
 ,(34003,35)
 ,(25472,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (25472,16)
 ,(7445,18)
 ,(7445,53)
@@ -34573,7 +34575,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25602,53)
 ,(40660,18)
 ,(40660,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (101376,99)
 ,(101376,10769)
 ,(49956,18)
@@ -35074,7 +35076,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(20471,12)
 ,(20471,35)
 ,(20471,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (18514,18)
 ,(23169,18)
 ,(23169,10749)
@@ -35575,7 +35577,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(39053,10749)
 ,(37169,27)
 ,(24805,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (43517,35)
 ,(43517,10402)
 ,(43517,10749)
@@ -36076,7 +36078,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(10192,14)
 ,(10192,16)
 ,(10192,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (24663,35)
 ,(24663,18)
 ,(24663,10749)
@@ -36577,7 +36579,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(98328,10402)
 ,(33195,18)
 ,(33195,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (33195,9648)
 ,(46011,18)
 ,(46011,35)
@@ -37078,7 +37080,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(43491,18)
 ,(43491,10749)
 ,(43890,10402);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (43890,10749)
 ,(37596,10749)
 ,(37596,12)
@@ -37579,7 +37581,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(27563,18)
 ,(27563,10749)
 ,(61755,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (61755,878)
 ,(59408,10749)
 ,(59408,18)
@@ -38080,7 +38082,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(27585,18)
 ,(48204,18)
 ,(48204,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (62337,18)
 ,(53156,18)
 ,(53156,35)
@@ -38581,7 +38583,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(22843,16)
 ,(22843,878)
 ,(22843,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (22843,18)
 ,(43947,53)
 ,(43947,80)
@@ -39082,7 +39084,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(93528,18)
 ,(93528,10749)
 ,(109326,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (23629,28)
 ,(23629,14)
 ,(23629,53)
@@ -39583,7 +39585,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(40699,35)
 ,(21841,27)
 ,(115427,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (55721,35)
 ,(55721,10749)
 ,(38321,28)
@@ -40084,7 +40086,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(52239,18)
 ,(52239,10749)
 ,(30645,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (45215,80)
 ,(45215,18)
 ,(45215,9648)
@@ -40585,7 +40587,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(41387,35)
 ,(52846,10749)
 ,(50722,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (82688,99)
 ,(82688,10769)
 ,(39413,18)
@@ -41086,7 +41088,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(55863,10752)
 ,(55863,10769)
 ,(47182,16);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (47182,10751)
 ,(91094,18)
 ,(148284,28)
@@ -41587,7 +41589,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(4195,18)
 ,(4195,80)
 ,(14726,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (14726,10749)
 ,(14726,53)
 ,(4809,35)
@@ -42088,7 +42090,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(38541,18)
 ,(52520,14)
 ,(52520,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (52520,27)
 ,(75174,28)
 ,(75174,18)
@@ -42589,7 +42591,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(15086,35)
 ,(48458,99)
 ,(48458,10769);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (85883,18)
 ,(85883,10749)
 ,(25831,16)
@@ -43090,7 +43092,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25799,18)
 ,(25799,10769)
 ,(25799,36);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (62213,35)
 ,(62213,14)
 ,(13486,14)
@@ -43591,7 +43593,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(40770,35)
 ,(40770,27)
 ,(75810,10770);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (75810,80)
 ,(75810,9648)
 ,(75810,53)
@@ -44092,7 +44094,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(84329,878)
 ,(84329,35)
 ,(84329,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (84329,80)
 ,(122492,99)
 ,(122492,10402)
@@ -44593,7 +44595,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(288037,16)
 ,(27420,27)
 ,(26233,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (24863,35)
 ,(24863,10749)
 ,(43937,18)
@@ -45094,7 +45096,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25539,35)
 ,(25539,80)
 ,(44594,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (44594,18)
 ,(44594,10749)
 ,(135225,18)
@@ -45595,7 +45597,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(22066,53)
 ,(46016,28)
 ,(46016,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (26467,28)
 ,(46500,28)
 ,(46500,14)
@@ -46096,7 +46098,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(68179,10751)
 ,(68179,878)
 ,(161187,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (161187,36)
 ,(44220,35)
 ,(58235,18)
@@ -46597,7 +46599,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(109410,18)
 ,(85510,18)
 ,(86577,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (86577,35)
 ,(86577,99)
 ,(86577,10749)
@@ -47098,7 +47100,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(68297,99)
 ,(68297,18)
 ,(22911,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (194121,27)
 ,(184125,18)
 ,(184125,53)
@@ -47599,7 +47601,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(159344,12)
 ,(159344,18)
 ,(159344,37);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (75878,99)
 ,(23368,99)
 ,(47089,18)
@@ -48100,7 +48102,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(138217,36)
 ,(138217,99)
 ,(164558,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (164558,10402)
 ,(64936,53)
 ,(64936,35)
@@ -48601,7 +48603,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(19623,53)
 ,(38273,53)
 ,(38273,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (214100,10402)
 ,(214100,10749)
 ,(214100,35)
@@ -49102,7 +49104,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(137312,35)
 ,(218329,28)
 ,(218329,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (42870,878)
 ,(42870,27)
 ,(85024,27)
@@ -49603,7 +49605,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(79113,35)
 ,(79113,18)
 ,(79113,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (233063,35)
 ,(289336,10770)
 ,(289336,18)
@@ -50104,7 +50106,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(36075,27)
 ,(117773,35)
 ,(78239,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (78239,28)
 ,(78239,53)
 ,(78239,878)
@@ -50605,7 +50607,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(18224,12)
 ,(18224,16)
 ,(18224,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (18224,14)
 ,(85444,16)
 ,(85444,18)
@@ -51106,7 +51108,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(131916,27)
 ,(211078,99)
 ,(40715,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (40715,12)
 ,(40715,18)
 ,(40715,53)
@@ -51607,7 +51609,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(56171,878)
 ,(166822,878)
 ,(75950,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (462788,10770)
 ,(462788,18)
 ,(204784,18)
@@ -52108,7 +52110,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(211052,18)
 ,(109716,18)
 ,(109716,36);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (101281,35)
 ,(29058,27)
 ,(29058,878)
@@ -52609,7 +52611,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(265010,53)
 ,(157823,53)
 ,(157823,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (31937,28)
 ,(31937,80)
 ,(85765,53)
@@ -53110,7 +53112,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(140513,27)
 ,(271397,18)
 ,(271397,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (215928,18)
 ,(253312,18)
 ,(253312,35)
@@ -53611,7 +53613,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(3576,18)
 ,(3576,53)
 ,(413669,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (234862,16)
 ,(234862,35)
 ,(234862,10751)
@@ -54112,7 +54114,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(96239,27)
 ,(96239,18)
 ,(128154,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (128154,10749)
 ,(180147,35)
 ,(227094,27)
@@ -54613,7 +54615,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(15011,27)
 ,(295087,12)
 ,(295087,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (13835,35)
 ,(13835,18)
 ,(140818,28)
@@ -55114,7 +55116,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(123581,99)
 ,(123581,12)
 ,(253295,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (253295,18)
 ,(262088,27)
 ,(262088,35)
@@ -55615,7 +55617,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(59169,16)
 ,(125154,99)
 ,(51239,878);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (51239,53)
 ,(222216,18)
 ,(222216,28)
@@ -56116,7 +56118,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(128946,35)
 ,(42759,28)
 ,(42759,12);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (42759,18)
 ,(42759,10751)
 ,(36339,53)
@@ -56617,7 +56619,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(160704,28)
 ,(160704,18)
 ,(160704,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (242452,36)
 ,(242452,18)
 ,(118139,80)
@@ -57118,7 +57120,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(18202,14)
 ,(33545,28)
 ,(33545,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (33545,10752)
 ,(96716,18)
 ,(96716,10749)
@@ -57619,7 +57621,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(166426,14)
 ,(166426,35)
 ,(141052,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (141052,12)
 ,(141052,14)
 ,(141052,878)
@@ -58120,7 +58122,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(48341,18)
 ,(98507,35)
 ,(98507,10402);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (111359,80)
 ,(111359,18)
 ,(26250,35)
@@ -58621,7 +58623,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(70190,53)
 ,(38782,14)
 ,(38782,16);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (38782,10751)
 ,(38782,12)
 ,(61682,35)
@@ -59122,7 +59124,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(56412,18)
 ,(56412,53)
 ,(56412,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (56412,9648)
 ,(38556,28)
 ,(38556,18)
@@ -59623,7 +59625,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(29286,27)
 ,(29286,9648)
 ,(16048,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (16048,18)
 ,(16048,10749)
 ,(52216,35)
@@ -60124,7 +60126,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(319078,99)
 ,(318044,99)
 ,(318044,10402);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (312813,99)
 ,(227800,99)
 ,(194537,99)
@@ -60625,7 +60627,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(6591,9648)
 ,(6591,53)
 ,(150658,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (183635,53)
 ,(260888,80)
 ,(264166,99)
@@ -61126,7 +61128,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25745,53)
 ,(25745,10769)
 ,(221791,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (288789,99)
 ,(246127,18)
 ,(76532,18)
@@ -61627,7 +61629,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(77787,878)
 ,(77787,53)
 ,(69576,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (69576,9648)
 ,(69576,53)
 ,(328233,99)
@@ -62128,7 +62130,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(2169,35)
 ,(9337,35)
 ,(6172,10752);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (6172,35)
 ,(6172,18)
 ,(78313,18)
@@ -62629,7 +62631,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(253639,99)
 ,(323016,99)
 ,(323016,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (250665,99)
 ,(208333,16)
 ,(208333,35)
@@ -63130,7 +63132,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(59810,99)
 ,(253262,99)
 ,(328252,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (254128,28)
 ,(254128,18)
 ,(254128,53)
@@ -63631,7 +63633,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(208517,18)
 ,(208517,10752)
 ,(208517,36);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (191829,53)
 ,(242629,37)
 ,(188465,18)
@@ -64132,7 +64134,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(19025,53)
 ,(20359,35)
 ,(20359,10769);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (109028,18)
 ,(109028,28)
 ,(109028,53)
@@ -64633,7 +64635,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(25506,99)
 ,(60363,35)
 ,(60363,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (122268,18)
 ,(122268,35)
 ,(48885,35)
@@ -65134,7 +65136,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(69785,80)
 ,(69785,18)
 ,(69785,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (115124,35)
 ,(115124,28)
 ,(155397,28)
@@ -65635,7 +65637,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(23377,35)
 ,(164954,16)
 ,(26809,16);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (26809,14)
 ,(26809,10751)
 ,(42979,16)
@@ -66136,7 +66138,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(108391,53)
 ,(128979,12)
 ,(128979,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (23692,27)
 ,(65367,28)
 ,(65367,18)
@@ -66637,7 +66639,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(129067,16)
 ,(41141,18)
 ,(41141,36);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (203801,35)
 ,(203801,28)
 ,(203801,12)
@@ -67138,7 +67140,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(51938,18)
 ,(51938,9648)
 ,(51938,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (70351,27)
 ,(131116,18)
 ,(79247,18)
@@ -67639,7 +67641,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(266425,53)
 ,(266425,80)
 ,(266425,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (153021,10770)
 ,(153021,80)
 ,(153021,18)
@@ -68140,7 +68142,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(85827,10751)
 ,(85827,18)
 ,(56067,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (56067,10751)
 ,(128795,53)
 ,(128795,18)
@@ -68641,7 +68643,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(212051,18)
 ,(190213,18)
 ,(33551,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (33551,10751)
 ,(33551,37)
 ,(142106,35)
@@ -69142,7 +69144,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(333344,35)
 ,(242462,53)
 ,(356216,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (296503,27)
 ,(296503,35)
 ,(233490,10751)
@@ -69643,7 +69645,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(335310,35)
 ,(335310,99)
 ,(44827,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (44827,10769)
 ,(160155,10770)
 ,(160155,35)
@@ -70144,7 +70146,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(65282,80)
 ,(35418,80)
 ,(276770,10402);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (47211,80)
 ,(47211,18)
 ,(318954,28)
@@ -70645,7 +70647,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(259985,99)
 ,(32160,28)
 ,(32160,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (32160,53)
 ,(360605,14)
 ,(360605,12)
@@ -71146,7 +71148,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(233639,10751)
 ,(3936,35)
 ,(281826,53);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (281826,80)
 ,(281826,18)
 ,(113377,99)
@@ -71647,7 +71649,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(27703,53)
 ,(27703,27)
 ,(42326,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (42326,37)
 ,(28847,27)
 ,(287493,35)
@@ -72148,7 +72150,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(44282,10749)
 ,(339342,27)
 ,(359070,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (359070,14)
 ,(86413,99)
 ,(86413,18)
@@ -72649,7 +72651,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(19543,27)
 ,(19543,878)
 ,(212494,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (48333,28)
 ,(48333,27)
 ,(48333,878)
@@ -73150,7 +73152,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(61535,35)
 ,(61535,10749)
 ,(256375,99);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (79435,18)
 ,(334028,27)
 ,(58384,27)
@@ -73651,7 +73653,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(282070,878)
 ,(282070,27)
 ,(373541,27);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (373541,9648)
 ,(373541,53)
 ,(252028,35)
@@ -74152,7 +74154,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(339944,14)
 ,(40241,27)
 ,(58431,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (58431,27)
 ,(58431,35)
 ,(58431,53)
@@ -74653,7 +74655,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(53766,35)
 ,(53766,18)
 ,(53766,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (130275,35)
 ,(130275,18)
 ,(124527,80)
@@ -75154,7 +75156,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(77294,16)
 ,(159514,18)
 ,(159514,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (335051,35)
 ,(320302,35)
 ,(320302,10749)
@@ -75655,7 +75657,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(46426,18)
 ,(46426,10769)
 ,(68720,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (68720,10749)
 ,(351365,35)
 ,(105465,35)
@@ -76156,7 +76158,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(44436,99)
 ,(44436,10402)
 ,(103953,878);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (103953,18)
 ,(103953,10749)
 ,(211714,99)
@@ -76657,7 +76659,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(19980,80)
 ,(18673,53)
 ,(187579,10770);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (187579,99)
 ,(16008,27)
 ,(20891,12)
@@ -77158,7 +77160,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(5256,53)
 ,(64869,12)
 ,(64869,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (38659,37)
 ,(42789,35)
 ,(156007,28)
@@ -77659,7 +77661,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(315664,35)
 ,(315664,18)
 ,(49834,10402);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (49834,18)
 ,(49834,35)
 ,(24258,35)
@@ -78160,7 +78162,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(204344,18)
 ,(200558,18)
 ,(200558,878);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (26768,18)
 ,(354924,27)
 ,(354924,53)
@@ -78661,7 +78663,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(266102,18)
 ,(13521,35)
 ,(13521,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (13521,18)
 ,(13520,35)
 ,(123182,18)
@@ -79162,7 +79164,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(24827,18)
 ,(24827,35)
 ,(24827,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (24827,10769)
 ,(278774,35)
 ,(278774,10751)
@@ -79663,7 +79665,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(394812,99)
 ,(370464,80)
 ,(370464,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (354818,35)
 ,(369820,35)
 ,(12443,18)
@@ -80164,7 +80166,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(168098,878)
 ,(168098,53)
 ,(356334,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (28529,14)
 ,(28529,27)
 ,(28529,53)
@@ -80665,7 +80667,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(337703,16)
 ,(337703,18)
 ,(337703,14);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (228941,18)
 ,(81633,35)
 ,(81633,10769)
@@ -81166,7 +81168,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(120729,18)
 ,(120729,10770)
 ,(120729,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (198491,18)
 ,(154399,35)
 ,(154399,18)
@@ -81667,7 +81669,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(228034,18)
 ,(381044,99)
 ,(330982,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (330982,27)
 ,(330982,9648)
 ,(358332,16)
@@ -82168,7 +82170,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(171346,35)
 ,(188001,35)
 ,(188001,10749);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (44868,9648)
 ,(44868,53)
 ,(413232,10402)
@@ -82669,7 +82671,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(360389,10402)
 ,(21481,35)
 ,(21481,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (21481,10751)
 ,(21481,14)
 ,(21481,10770)
@@ -83170,7 +83172,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(358808,18)
 ,(371181,10770)
 ,(371181,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (145132,10751)
 ,(41281,18)
 ,(41281,10751)
@@ -83671,7 +83673,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(46718,16)
 ,(46718,12)
 ,(397514,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (397514,27)
 ,(421851,99)
 ,(113649,27)
@@ -84172,7 +84174,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(268712,10751)
 ,(268712,14)
 ,(374247,10770);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (374247,14)
 ,(374247,10751)
 ,(6103,80)
@@ -84673,7 +84675,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(105093,9648)
 ,(105093,27)
 ,(356305,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (229065,99)
 ,(49754,35)
 ,(75604,12)
@@ -85174,7 +85176,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(418688,99)
 ,(395982,27)
 ,(395982,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (395982,18)
 ,(395982,53)
 ,(395982,14)
@@ -85675,7 +85677,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(408220,16)
 ,(408220,14)
 ,(408220,878);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (408220,53)
 ,(363807,35)
 ,(376424,80)
@@ -86176,7 +86178,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(307696,18)
 ,(307696,16)
 ,(439107,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (398541,18)
 ,(429838,53)
 ,(429838,9648)
@@ -86677,7 +86679,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(26797,35)
 ,(66109,35)
 ,(24979,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (21587,35)
 ,(382474,35)
 ,(149883,35)
@@ -87178,7 +87180,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(135561,27)
 ,(6107,80)
 ,(6107,18);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (6107,9648)
 ,(440777,18)
 ,(440777,28)
@@ -87679,7 +87681,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(413782,99)
 ,(233444,53)
 ,(233444,80);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (276486,10402)
 ,(30592,18)
 ,(30592,10402)
@@ -88180,7 +88182,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(324963,10751)
 ,(324963,14)
 ,(227257,10751);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (227257,16)
 ,(227257,14)
 ,(290727,16)
@@ -88681,7 +88683,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(36698,28)
 ,(37656,28)
 ,(37656,878);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (16269,28)
 ,(16269,35)
 ,(16269,18)
@@ -89182,7 +89184,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(162042,28)
 ,(162042,53)
 ,(31240,28);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (31240,12)
 ,(62855,28)
 ,(62855,878)
@@ -89683,7 +89685,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(7298,80)
 ,(7298,10769)
 ,(7298,9648);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (7298,53)
 ,(28279,27)
 ,(28279,10769)
@@ -90184,7 +90186,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(12600,10751)
 ,(34065,12)
 ,(34065,16);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (34065,10751)
 ,(34065,14)
 ,(308794,16)
@@ -90685,7 +90687,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(54551,10751)
 ,(73281,18)
 ,(378236,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (378236,10751)
 ,(378236,16)
 ,(407531,27)
@@ -91186,7 +91188,7 @@ INSERT INTO movie_genre(movie_id,genre_id) VALUES
 ,(39562,10770)
 ,(14008,35)
 ,(49279,35);
-INSERT INTO movie_genre(movie_id,genre_id) VALUES
+INSERT IGNORE INTO movie_genre(movie_id,genre_id) VALUES
  (49279,14)
 ,(49279,878)
 ,(44333,14)
