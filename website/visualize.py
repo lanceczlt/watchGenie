@@ -1,10 +1,12 @@
+from flask import Blueprint, render_template, request, flash, jsonify, session, redirect, url_for
+import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from .dbconnection import connect
+from db_connection import connect
 
 
 visualize = Blueprint('visualize', __name__)
-connection, cursor = connect()
+connect, cursor = connect()
 
 @visualize.route('/visualize', methods=['GET', 'POST'])
 def home():
@@ -158,7 +160,7 @@ def home():
         )
         avgTMDBRatings = cursor.fetchall()
 
-        d2 = {'Title' : movieTitles, 'userRating' : userRatings, 'watchGenieRating' : avgWGRatings, 'tmdbRating' : avgTMDBRatings}
+        df2 = {'Title' : movieTitles, 'userRating' : userRatings, 'watchGenieRating' : avgWGRatings, 'tmdbRating' : avgTMDBRatings}
 
         fig3 = px.scatter(df2, x = 'watchGenieRating', y = 'tmdbRating', size = 'userRating', hover_name = 'Title', log_x = True, size_max = 60)
         fig3.show()
@@ -172,6 +174,7 @@ def home():
         ratingCount = []
         genreCount = []
         monthCount = []
+        dateCount = []
         for genre in ratingCountPerGenreMonth:
             ratingCount.append(genre[0])
             genreCount.append(genre[1])
