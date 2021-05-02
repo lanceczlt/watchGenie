@@ -7,7 +7,7 @@ import requests
 def connect():
     try:
         connect = pymysql.connect(
-        user = 'root', password = 'password', host = 'localhost', database = 'movieGenie',
+        user = 'root', password = 'password', host = 'localhost', database = 'watchGenie',
         )
         cursor = connect.cursor(pymysql.cursors.DictCursor)
         return connect, cursor

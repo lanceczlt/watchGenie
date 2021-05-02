@@ -15,7 +15,7 @@ genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance',
 
 def userGenrePie():
     cursor.execute(
-        "SELECT genres FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.movies.movie_id = moviegenie.ratings.movie_id AND moviegenie.users.user_id = moviegenie.ratings.user_id"
+        "SELECT genres FROM movies JOIN ratings JOIN users WHERE movies.movie_id = ratings.movie_id AND users.user_id = ratings.user_id"
     )
     genres = cursor.fetchall()
     
@@ -54,7 +54,7 @@ def userGenrePie():
 def userCompareBar():
     #bar chart comparison
     cursor.execute(#Trying to collect all genres (and their counts) that the user has reviewed
-        "SELECT genres FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.movies.movie_id = moviegenie.ratings.movie_id AND moviegenie.users.user_id = moviegenie.ratings.user_id"
+        "SELECT genres FROM movies JOIN ratings JOIN users WHERE movies.movie_id = ratings.movie_id AND users.user_id = ratings.user_id"
     )
     genres = cursor.fetchall()
     
@@ -103,7 +103,7 @@ def userCompareBar():
     ]
 
     cursor.execute( #Trying to take in all genres of movie reviews of all users
-        "SELECT genres FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+        "SELECT genres FROM movies JOIN ratings JOIN users WHERE movies.movie_id = ratings.movie_id"
     )
     allUsersGenres = cursor.fetchall()
 
@@ -129,7 +129,7 @@ def userCompareBar():
     allTVMovieCount = allUsersGenres.count('TV Movie')
 
     cursor.execute( #Trying to find total count of users
-        "SELECT count(user_id) FROM moviegenie.users"
+        "SELECT count(user_id) FROM users"
     )
     userCount = cursor.fetchone()[0]
     #Finding averages
@@ -190,7 +190,7 @@ def userCompareBar():
 def userBubbleChart():
     #bubble chart (y-axis: watchgenie avg rating, x-axiz: imdb avg rating, circle size: user rating)
     cursor.execute(
-        "SELECT title, rating FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.users.user_id = moviegenie.ratings.user_id AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+        "SELECT title, rating FROM movies JOIN ratings JOIN users WHERE users.user_id = ratings.user_id AND movies.movie_id = ratings.movie_id"
     )
     movieTitles_userRatings = cursor.fetchall()
 
@@ -201,12 +201,12 @@ def userBubbleChart():
         userRatings.append(title[1])
 
     cursor.execute(
-        "SELECT avg(rating) FROM moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.users.user_id = moviegenie.ratings.user_id"
+        "SELECT avg(rating) FROM ratings JOIN users WHERE users.user_id = ratings.user_id"
     )
     avgWGRatings = cursor.fetchall()
 
     cursor.execute(
-        "SELECT vote_average FROM moviegenie.movies JOIN moviegenie.users JOIN moviegenie.ratings WHERE moviegenie.users.user_id = moviegenie.ratings.user_id AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+        "SELECT vote_average FROM movies JOIN users JOIN ratings WHERE users.user_id = ratings.user_id AND movies.movie_id = ratings.movie_id"
     )
     avgTMDBRatings = cursor.fetchall()
 
@@ -220,7 +220,7 @@ def userBubbleChart():
 def genrePopularityGraph():
     #Genre Popularity over time
     cursor.execute( #may need to change "month" when dates are added to database
-        "SELECT count(rating), genre, rating_date FROM moviegenie.ratings JOIN moviegenie.movies JOIN moviegenie.genres JOIN moviegenie.movie_genre WHERE moviegenie.ratings.movie_id = moviegenie.movies.movie_id AND moviegenie.movies.movie_id = moviegenie.movie_genre.movie_id AND moviegenie.movie_genre.genre_id = moviegenie.genres.genre_id"
+        "SELECT count(rating), genre, rating_date FROM ratings JOIN movies JOIN genres JOIN movie_genre WHERE ratings.movie_id = movies.movie_id AND movies.movie_id = movie_genre.movie_id AND movie_genre.genre_id = genres.genre_id"
     )
     ratingCountPerGenreMonth = cursor.fetchall()
     #may need to group data
@@ -237,7 +237,7 @@ def genrePopularityGraph():
 
 def movie_popularityOT(movie_title):
     cursor.execute(
-        "SELECT count(rating), rating_date FROM moviegenie.ratings JOIN moviegenie.movies WHERE movie_title = moviegenie.movies.title AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+        "SELECT count(rating), rating_date FROM ratings JOIN movies WHERE movie_title = movies.title AND movies.movie_id = ratings.movie_id"
     )
     movieRatingCountAndDate = cursor.fetchall()
     movieRatingCount = []

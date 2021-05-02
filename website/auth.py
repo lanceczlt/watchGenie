@@ -11,7 +11,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
         cursor.execute(
-            "SELECT * FROM moviegenie.users WHERE email = %s", email)
+            "SELECT * FROM users WHERE email = %s", email)
         user = cursor.fetchone()
         print(user)
         if user:
@@ -55,7 +55,7 @@ def sign_up():
         age = request.form.get('age')
         gender = request.form.get('gender')
         cursor.execute(
-            "SELECT * FROM moviegenie.users WHERE email = %s", email)
+            "SELECT * FROM users WHERE email = %s", email)
         user = cursor.fetchone()
         print()
         if user:
@@ -71,9 +71,9 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            cursor.execute("SELECT MAX(user_id) as max FROM moviegenie.users")
+            cursor.execute("SELECT MAX(user_id) as max FROM users")
             new_id = cursor.fetchone()['max'] + 1
-            cursor.execute("INSERT INTO moviegenie.users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+            cursor.execute("INSERT INTO users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                            (new_id, first_name, last_name, email, password1, age, gender))
             connect.commit()
             flash('Account created!', category='success')
