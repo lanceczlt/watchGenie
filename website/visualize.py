@@ -1,9 +1,3 @@
-<<<<<<< Updated upstream
-import plotly.express as px
-import plotly.graph_objects as go
-
-visualize = Blueprint('visualize', __name__)
-=======
 import plotly
 from plotly.subplots import make_subplots
 import plotly.express as px
@@ -287,10 +281,8 @@ def movie_popularityOT(movie_title):
     df4 = {'ratingCount' : movieRatingCount, 'date' : ratingDate}
     fig5 = px.line(df4, x = 'date', y = 'ratingCount')
     return fig5.show()
->>>>>>> Stashed changes
 
 
-<<<<<<< Updated upstream
 
     if request.method == 'GET':
         cursor.execute(
@@ -445,6 +437,4 @@ def movie_popularityOT(movie_title):
 
     else:
         return redirect(url_for('auth.login'))
-=======
->>>>>>> Stashed changes
 
