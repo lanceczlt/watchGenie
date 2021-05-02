@@ -31,7 +31,6 @@ def login():
         else:
             return render_template("login.html")
 
-
 @auth.route('/logout')
 def logout():
     session.pop('logged_in', None)
@@ -47,7 +46,6 @@ def sign_up():
 
     if request.method == 'POST':
         email = request.form.get('email')
-        print(email)
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
         password1 = request.form.get('password1')
@@ -57,7 +55,6 @@ def sign_up():
         cursor.execute(
             "SELECT * FROM users WHERE email = %s", email)
         user = cursor.fetchone()
-        print()
         if user:
             flash('Email already exists.', category='error')
         elif len(email) < 4:

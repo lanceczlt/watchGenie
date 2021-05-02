@@ -26,7 +26,7 @@ def search():
         cursor.execute(search_query,(genre, release_date, avg_vote, title))
         search_results = cursor.fetchall()
         for result in search_results:
-            result['img_url'] = get_movie_image(result['tmdb_id'])
+            result['img_url'] = get_movie_image(result['movie_id'])
         session['results'] = search_results
         print(type(session['results']))
         return redirect(url_for('views.result'))
