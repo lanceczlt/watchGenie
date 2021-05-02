@@ -1,0 +1,32 @@
+<<<<<<< Updated upstream
+=======
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <meta charset="UTF-8">
+    <title>User Analytics</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="chart" id="bargraph">
+                <script>
+                    var graph1 = {{plot1 | safe}};
+                    console.log(graph1)
+                    //var figure = JSON.parse(graph1);
+                    Plotly.newPlot('bargraph', graph1.data, graph1.layout);
+                    // Plotly.plot('bargraph',graph1,{});
+                    // var graph2 = {{plot2 | safe}};
+                    // Plotly.plot('bargraph',graph2,{});                    
+                </script>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+>>>>>>> Stashed changes
