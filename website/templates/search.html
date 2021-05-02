@@ -13,7 +13,7 @@
     <div class="inner-form">
       <div class="basic-search">
         <div class="input-field">
-          <input id="search" type="text" placeholder="Search our movies database" />
+          <input id="search" name="movie_title"type="text" placeholder="Search our movies database" />
           <div class="icon-wrap">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
               height="20" viewBox="0 0 20 20">
@@ -28,22 +28,22 @@
             <div class="input-select">
               <select data-trigger="" name="genres">
                 <option placeholder="" value="">Genre</option>
-                <option value="action">Action</option>
-                <option value="romance">Romance</option>
-                <option value="comedy">Comedy</option>
-                <option value="animation">Animation</option>
-                <option value="family">Family</option>
-                <option value="adventure">Adventure</option>
-                <option value="fantasy">Fantasy</option>
-                <option value="crime">Crime</option>
-                <option value="horror">Horror</option>
-                <option value="history">History</option>
-                <option value="science fiction">Science Fiction</option>
-                <option value="mystery">Mystery</option>
-                <option value="war">War</option>
-                <option value="foreign">Foreign</option>
-                <option value="documentary">Documentary</option>
-                <option value="drama">Drama</option>
+                <option value="Action">Action</option>
+                <option value="Romance">Romance</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Animation">Animation</option>
+                <option value="Family">Family</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Crime">Crime</option>
+                <option value="Horror">Horror</option>
+                <option value="History">History</option>
+                <option value="Science fiction">Science Fiction</option>
+                <option value="Mystery">Mystery</option>
+                <option value="War">War</option>
+                <option value="Foreign">Foreign</option>
+                <option value="Documentary">Documentary</option>
+                <option value="Drama">Drama</option>
               </select>
             </div>
           </div>
@@ -118,46 +118,11 @@
         </div>
         <div class="input-field">
           <div class="group-btn">
-            <button class="btn-delete" id="delete">Reset</button>
-            <button class="btn-search">Search</button>
+            <button type = "submit" formmethod="post" class="btn-search">Search</button>
           </div>
         </div>
       </div>
     </div>
+  </form>
 </div>
-</form>
-</div>
-<script src="../static/js/extention/choices.js"></script>
-<script>
-  const customSelects = document.querySelectorAll("select");
-  const deleteBtn = document.getElementById('delete')
-  const choices = new Choices('select',
-    {
-      searchEnabled: false,
-      removeItemButton: true,
-      itemSelectText: '',
-    });
-  for (let i = 0; i < customSelects.length; i++) {
-    customSelects[i].addEventListener('addItem', function (event) {
-      if (event.detail.value) {
-        let parent = this.parentNode.parentNode
-        parent.classList.add('valid')
-        parent.classList.remove('invalid')
-      }
-      else {
-        let parent = this.parentNode.parentNode
-        parent.classList.add('invalid')
-        parent.classList.remove('valid')
-      }
-    }, false);
-  }
-  deleteBtn.addEventListener("click", function (e) {
-    e.preventDefault()
-    const deleteAll = document.querySelectorAll('.choices__button')
-    for (let i = 0; i < deleteAll.length; i++) {
-      deleteAll[i].click();
-    }
-  });
-
-</script>
 {% endblock %}

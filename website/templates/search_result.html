@@ -1,17 +1,66 @@
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/movie_display.css">
-    <title>Movie App</title>
+    <title>Search Results</title>
 </head>
 
-{% extends "base.html" %} 
-{% block title %} Login {% endblock %} 
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
 
 {% block content %}
-    <main id="main">
-        
-    </main>
-    <script src="../static/js/movie_display.js"></script>
-{% endblock %} 
+<main id="main">
+</main>
+<script>
+    var results = JSON.parse('{{ search_results | tojson }}');
+    const main = document.getElementById('main');
+    const form =  document.getElementById('form');
+    const search = document.getElementById('search');
+
+    showMovies(results);
+
+    function showMovies(data) {
+        main.innerHTML = '';
+        data.forEach(movie => {
+            const {title, poster_path, vote_average, overview} = movie;
+            const {title} = movie['title'];
+            const {poster_path} = movie['img_url'];
+            const {vote_average} = movie['vote_average'];
+            const {overview} = movie['overview'];
+            const movieEl = document.createElement('div');
+            movieEl.classList.add('movie');
+            movieEl.innerHTML = `
+                <img src="${poster_path? IMG_URL+poster_path: "https://www.popcorn.app/assets/app/images/placeholder-movieimage.png" }" alt="${title}">
+
+                <div class="movie-info">
+                    <h3>${title}</h3>
+                    <span class="${getColor(vote_average)}">${vote_average}</span>
+                </div>
+
+                <div class="overview">
+                    <h3>Overview</h3>
+                    ${overview}
+                </div>
+            `
+            main.appendChild(movieEl);
+        })
+    }
+
+
+    function getColor(vote) {
+        if(vote>= 8){
+            return 'green'
+        }else if(vote >= 5){
+            return "orange"
+        }else{
+            return 'red'
+        }
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        getMovies(API_URL);
+    })
+
+</script>
+{% endblock %}
