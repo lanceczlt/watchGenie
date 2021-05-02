@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS links(
    movie_id INTEGER  NOT NULL PRIMARY KEY 
   ,imdb_id  INTEGER  NOT NULL
-  ,tmdb_id  INTEGER 
-  ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id)
+  ,tmdb_id  INTEGER NOT NULL
+  ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
 );
 INSERT IGNORE INTO links(movie_id,imdb_id,tmdb_id) VALUES
  (1,114709,862)
