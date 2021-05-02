@@ -10,6 +10,8 @@
 {% block content %}
 <main id="main">
     {% for movie in search_results %}
+    {% set link = '/movie_info/' + movie['movie_id']|string %}
+    <a href= {{ link }} >
         <div class = "movie">
             <img src = {{ movie['img_url'] }}>
             <div class="movie-info">
@@ -21,6 +23,7 @@
                 {{ movie['overview'] }}
             </div>
         </div>
+    </a>
     {% endfor %}
 </main>
 {% endblock %}

@@ -1,142 +1,270 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata|Merriweather');
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 
-$body: 'Inconsolata', monospace;
-$big: 'Merriweather', serif;
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-$white: #ffffff;
-$primary: #F2DAD7;
-$secondary: #D1A39E;
-$light: #CECDCA;
-$dark: #474545;
-
-$ease: all 0.3s ease-in-out;
-
-body {
-  font-family: $body;
-  margin: 0;
+*, *:before, *:after {
+  box-sizing: border-box;
 }
 
-button {
+body {
+  background: #43423E;
+}
+
+a {
+  text-decoration: none;
+  color: #5C7FB8
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.movie-card {
+  font: 14px/22px "Lato", Arial, sans-serif;
+  color: #A9A8A3;
+  padding: 10px;
+}
+
+.container1 {
+  margin: 0 auto;
+  width: 780px;
+  height: 640px;
+  background: #F0F0ED;
+  border-radius: 5px;
+  position: relative;
+}
+
+.hero {
+  height: 342px;  
+  margin:0;
+  position: relative;
+  overflow: hidden;
+  z-index:1;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+    
+}
+
+.hero:before {
+  content:'';
+  width:100%; height:100%;
+  position:absolute;
+  overflow: hidden;
+  top:0; left:0;
+  background:red;
+  background: url('../images/genie_backdrop.png');
+  z-index:-1;
+  
+  transform: skewY(-2.2deg);
+  transform-origin:0 0;
+  
+  //chrome antialias fix
+  -webkit-backface-visibility: hidden; 
+  
+}
+
+.cover {
+  position: absolute;
+  top: 160px;
+  left: 40px;
+  z-index: 2;
+}
+
+.details {
+  
+  padding: 60px 0 0 280px;
+  
+  
+  title1 {
+    color: white;
+    font-size: 44px;
+    margin-bottom: 13px;
+    position: relative;
+  }
+
+  title2 {    
+    color: #C7C1BA;
+    font-size: 23px;    
+    font-weight: 300;
+    margin-bottom: 15px;
+  }
+}
+
+.description {
+  
+  bottom: 0px;
+  height: 200px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #B1B0AC;
+  
+}
+
+.column1 {
+  padding-left: 50px;
+  padding-top: 120px;
+  width: 220px;
+  float: left;
+  text-align: center;
+
+}
+
+.tag {
+  background: white;
+  border-radius: 10px;
+  padding: 3px 8px;
+  font-size: 14px;
+  margin-right: 4px;
+  line-height: 35px;
   cursor: pointer;
 }
 
-#portfolio {
-  width: 100%;
-  min-height: 100vh;
-  background: $white;
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(200px, 1fr));
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 2px;
+.tag:hover {
+  background: #ddd;
 }
-.project {
-  position: relative;
-  background: $primary;
-  overflow: hidden;
+
+.column2 {
+  padding-left: 41px;
+  padding-top: 30px;
+  margin-left: 20px;
+  width: 480px;
+  float: left;
+}
+
+.avatars {
+  margin-top: 23px;
+  
   img {
-    position: absolute;
-    opacity: 0.9;
+    cursor: pointer;
   }
-  p {
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    padding: 1em 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    z-index: 3;
+  
+  img:hover {
+    opacity: 0.6;
   }
-  .grid__title {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
-    bottom: 0;
-    font-weight: 100;
-    font-size: 0.8em;
-    z-index: 3;
-    text-transform: uppercase;
-    color: $dark;
-    letter-spacing: 2px;
+  
+  a:hover {
+    text-decoration: none;
   }
 }
 
-// project hover overlay
-.project:hover .grid__overlay {
-  transform: translateY(0%);
+//star rating stuff via: https://codepen.io/jamesbarnett/pen/vlpkh/
+
+fieldset, label { margin: 0; padding: 0; }
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
 }
 
-.grid__overlay {
-  background: rgba(darken($primary, 10%), .9);
-  height: 100%;
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  position: relative;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  transform: translateY(101%);
-  transition: $ease;
-  button {
-    background: none;
-    outline: none;
-    font-weight: 100;
-    letter-spacing: 2px;
-    border: 1px solid $white;
-    color: $white;
-    text-transform: uppercase;
-    padding: 10px;
-    &:hover {
-      transition: $ease;
-      background: $white;
-      color: $secondary;
-      transform: scale(1.05);
-    }
-  }
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 10px;
+  margin-top: 25px;
+  font-size: 3em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
 }
 
-//project popup overlay
-
-.overlay {
-  position: fixed;
-  background: rgba($dark, 0.7);
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
-  z-index: 3;
-}
-.overlay.open {
-  display: grid;
-  align-items: center;
-  justify-items: center;
-}
-
-.overlay__inner {
-  background: $white;
-  width: 700px;
-  padding: 20px;
-  position: relative;
-  opacity: 1;
-}
-
-.close {
+.rating > .half:before { 
+  content: "\f089";
   position: absolute;
-  top: 3px;
-  right: 10px;
-  background: none;
-  outline: 0;
-  color: $dark;
-  border: 0;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  &:hover {
-    color: $secondary;
-  }
 }
 
-.project__image {
-  margin-left: -50%;
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+//tooltip stuff via: https://codepen.io/peiche/pen/JaftA
+
+a[data-tooltip] {
+  position: relative;
+}
+a[data-tooltip]::before,
+a[data-tooltip]::after {
+  position: absolute;
+  display: none;
+  opacity: 0.85;
+}
+a[data-tooltip]::before {
+  /*
+   * using data-tooltip instead of title so we 
+   * don't have the real tooltip overlapping
+   */
+  content: attr(data-tooltip);
+  background: #000;
+  color: #fff;
+  font-size: 13px;
+  padding: 5px;
+  border-radius: 5px;
+  /* we don't want the text to wrap */
+  white-space: nowrap;
+  text-decoration: none;
+}
+a[data-tooltip]::after {
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  content: '';
+}
+
+a[data-tooltip]:hover::before,
+a[data-tooltip]:hover::after {
+  display: block;
+}
+
+/** positioning **/
+
+/* top tooltip */
+a[data-tooltip][data-placement="top"]::before {
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 40px;
+}
+a[data-tooltip][data-placement="top"]::after {
+  border-top-color: #000;
+  border-bottom: none;
+  bottom: 50px;
+  left: 20px;
+  margin-bottom: 4px;
+}
+
+button.btn1{
+  background: transparent;
+  color: black;
+  border: 2px solid white;
+  background-color: white;
+  font-size: 20px;
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+  margin: 7px 15px;
+/* animate and time the transitions*/
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+button.btn1:hover{
+  background-color: black;
+  color: white;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
 }

@@ -8,12 +8,18 @@
     background-color: var(--secondary-color);
     position:relative;
     overflow: hidden;
+    cursor: pointer;
 }
-
 
 .movie img{
     width:100%;
+    cursor: pointer;
 }
+
+  
+ .movie img:hover {
+    opacity: 0.6;
+  }
 
 .movie-info{
     color:#eee;
