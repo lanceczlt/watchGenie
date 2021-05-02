@@ -22,76 +22,6 @@
     />
     <link rel="stylesheet" href="../static/css/homepage.css" />
 
-<<<<<<< Updated upstream
-    <div id="box3">
-      <div id="containerNAV">
-        <div id="logo">
-          <h1>
-            <a
-              class="nav-item nav-link"
-              id="home"
-              href="/"
-              style="color: white"
-            >
-              WATCH GENIE</a
-            >
-          </h1>
-        </div>
-        <div id="menu">
-          <ul>
-            {% if session.logged_in %}
-            <li>
-              <a
-                class="nav-item nav-link"
-                id="home"
-                href="/"
-                style="color: white"
-              >
-                HOME</a
-              >
-            </li>
-            <li>
-              <a
-                class="nav-item nav-link"
-                id="search"
-                href="/search"
-                style="color: white"
-                >SEARCH</a
-              >
-            </li>
-            <li>
-              <a
-                class="nav-item nav-link"
-                id="logout"
-                href="/logout"
-                style="color: white"
-                >LOGOUT</a
-              >
-            </li>
-            {% else %}
-            <li>
-              <a
-                class="nav-item nav-link"
-                id="signUp"
-                href="/sign_up"
-                style="color: white"
-                >SIGN UP</a
-              >
-            </li>
-            <li>
-              <a
-                class="nav-item nav-link"
-                id="login"
-                href="/login"
-                style="color: white"
-                >LOGIN</a
-              >
-            </li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-=======
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -133,7 +63,6 @@
         </li>
         {% endif %}
       </ul>
->>>>>>> Stashed changes
     </div>
 
     <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark g-custom" role="navigation">
@@ -159,8 +88,6 @@
         </div>
       </div>
     </nav> -->
-
-    <title>{% block title %} Home {% endblock %}</title>
   </head>
 
   <body>

@@ -15,15 +15,17 @@ genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance',
 
 @visualize.route('/visualization', methods=['GET', 'POST'])
 def user_visualization():
+    pie1 = userGenrePie()
     bar1 = userCompareBar()
-    # bar2 = userCompareBar()
-    return render_template('visualize.html', plot1 = bar1)
+    return render_template('visualize.html', plot1 = pie1, plot2 = bar1)
 
 def userGenrePie():
-    cursor.execute(
-        "SELECT genres FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.movies.movie_id = moviegenie.ratings.movie_id AND moviegenie.users.user_id = moviegenie.ratings.user_id"
-    )
-    genres = cursor.fetchall()
+    user_id = session['id']
+    cursor.execute("SELECT genre_name FROM movies JOIN ratings ON movies.movie_id = ratings.movie_id JOIN users ON users.user_id = ratings.user_id JOIN movie_genre ON movies.movie_id = movie_genre.movie_id JOIN genres ON movie_genre.genre_id = genres.genre_id WHERE users.user_id = %s",(user_id))
+    genresListDict = cursor.fetchall()
+    genres = []
+    for element in genresListDict:
+        genres.append(element['genre_name'])
     
     animationCount = genres.count('Animation')
     comedyCount = genres.count('Comedy')
@@ -46,16 +48,46 @@ def userGenrePie():
     westernCount = genres.count('Western')
     tvmovieCount = genres.count('TV Movie')
 
-    genreCountList = [animationCount, comedyCount, familyCount, adventureCount, fantasyCount, romanceCount, dramaCount, actionCount, crimeCount, thrillerCount, horrorCount, historyCount, sciencefictionCount, mysteryCount, warCount, foreignCount, musicCount, documentaryCount, westernCount, tvmovieCount
-
+    genreCountList = [
+        animationCount, 
+        comedyCount, 
+        familyCount, 
+        adventureCount, 
+        fantasyCount, 
+        romanceCount, 
+        dramaCount, 
+        actionCount, 
+        crimeCount, 
+        thrillerCount, 
+        horrorCount, 
+        historyCount, 
+        sciencefictionCount, 
+        mysteryCount, 
+        warCount, 
+        foreignCount, 
+        musicCount, 
+        documentaryCount, 
+        westernCount, 
+        tvmovieCount
     ]
 
+    copyGenreList = genreList.copy()
+
+    index = 0
+    while index < len(copyGenreList):
+        if genreCountList[index] == 0:
+            genreCountList.pop(index)
+            copyGenreList.pop(index)
+            index = index - 1
+        index = index + 1
+
     #pie chart
-    d1 = {'Genre': genreList, 'Count': genreCountList}
-    df1 = pd.DataFrame(data=d1)
-    fig1 = px.pie(df1, values = 'Count', names = 'Genre')
-    fig1.show()
-    return None
+    d = {'Genre': copyGenreList, 'Count': genreCountList}
+    df = pd.DataFrame(data=d)
+    fig = px.pie(df, values = 'Count', names = 'Genre')
+    fig.update_layout(height = 600, width = 1400, title_text="Your Genres")
+    graphJSON = plotly.io.to_json(fig)
+    return graphJSON
 
 def userCompareBar():
     #bar chart comparison
@@ -187,35 +219,36 @@ def userCompareBar():
         avgTVMovieCount
     ]
 
-    fig = make_subplots(rows=1, cols=2)
+    # fig = make_subplots(rows=1, cols=2)
 
-    fig.add_trace(
-        go.Bar(name = 'You', x = genreList, y = genreCountList),
-        row=1, col=1
-    )
-
-    fig.add_trace(
-        go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList),
-        row=1, col=1
-    )
-
-    fig.add_trace(
-        go.Bar(name = 'You', x = genreList, y = genreCountList),
-        row=1, col=2
-    )
-
-    fig.add_trace(
-        go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList),
-        row=1, col=2
-    )
-
-    fig.update_layout(height=600, width=1400, title_text="Side By Side Subplots")
-
-    # fig = go.Figure(data=[
+    # fig.add_trace(
     #     go.Bar(name = 'You', x = genreList, y = genreCountList),
-    #     go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList)
-    # ])
-    # fig.update_layout(barmode = 'group')
+    #     row=1, col=1
+    # )
+
+    # fig.add_trace(
+    #     go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList),
+    #     row=1, col=1
+    # )
+
+    # fig.add_trace(
+    #     go.Bar(name = 'You', x = genreList, y = genreCountList),
+    #     row=1, col=2
+    # )
+
+    # fig.add_trace(
+    #     go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList),
+    #     row=1, col=2
+    # )
+
+    # fig.update_layout(height=600, width=1400, title_text="Side By Side Subplots")
+
+    fig = go.Figure(data=[
+        go.Bar(name = 'You', x = genreList, y = genreCountList),
+        go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList)
+    ])
+    fig.update_layout(barmode = 'group')
+    fig.update_layout(height = 600, width = 1400, title_text="Your Genres vs. Average WatchGenie User Genres")
     graphJSON = plotly.io.to_json(fig)
     # graphJSON = json.dumps(data, cls = plotly.utils.PlotlyJSONEncoder)
     return graphJSON
