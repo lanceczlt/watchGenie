@@ -1,5 +1,6 @@
 import pymysql
 from pymysql import cursors
+from pymysql.cursors import DictCursor
 
 def connect():
     try:

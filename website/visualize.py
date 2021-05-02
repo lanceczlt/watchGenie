@@ -17,7 +17,8 @@ genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance',
 def user_visualization():
     pie1 = userGenrePie()
     bar1 = userCompareBar()
-    return render_template('visualize.html', plot1 = pie1, plot2 = bar1)
+    bubble1 = userBubbleChart()
+    return render_template('visualize.html', plot1 = pie1, plot2 = bar1, plot3 = bubble1)
 
 def userGenrePie():
     user_id = session['id']
@@ -254,39 +255,34 @@ def userCompareBar():
     return graphJSON
 
 def userBubbleChart():
+    user_id = session['id']
     #bubble chart (y-axis: watchgenie avg rating, x-axiz: imdb avg rating, circle size: user rating)
     cursor.execute(
-        "SELECT title, rating FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.users.user_id = moviegenie.ratings.user_id AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+        "SELECT m1.title, t2.rating, avg(r1.rating) as user_base_avg, m1.vote_average as tmdb_avg FROM movies as m1 JOIN (SELECT m2.movie_id, r2.rating FROM movies as m2 JOIN ratings as r2 ON m2.movie_id = r2.movie_id JOIN users ON r2.user_id = users.user_id WHERE users.user_id = %s) as t2 ON m1.movie_id = t2.movie_id JOIN ratings as r1 ON m1.movie_id = r1.movie_id GROUP BY (m1.movie_id)",(user_id)
     )
-    movieTitles_userRatings = cursor.fetchall()
-
+    bubbleAllList = cursor.fetchall()
     movieTitles = []
     userRatings = []
-    for title in movieTitles_userRatings:
-        movieTitles.append(title[0])
-        userRatings.append(title[1])
+    avgWGRatings = []
+    avgTMDBRatings = []
 
-    cursor.execute(
-        "SELECT avg(rating) FROM moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.users.user_id = moviegenie.ratings.user_id"
-    )
-    avgWGRatings = cursor.fetchall()
+    for title in bubbleAllList:
+        movieTitles.append(title['title'])
+        userRatings.append(title['rating'])
+        avgWGRatings.append(title['user_base_avg'])
+        avgTMDBRatings.append(title['tmdb_avg'])
 
-    cursor.execute(
-        "SELECT vote_average FROM moviegenie.movies JOIN moviegenie.users JOIN moviegenie.ratings WHERE moviegenie.users.user_id = moviegenie.ratings.user_id AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
-    )
-    avgTMDBRatings = cursor.fetchall()
-
-    d2 = {'Title' : movieTitles, 'userRating' : userRatings, 'watchGenieRating' : avgWGRatings, 'tmdbRating' : avgTMDBRatings}
-
-    fig3 = px.scatter(df2, x = 'watchGenieRating', y = 'tmdbRating', size = 'userRating', hover_name = 'Title', log_x = True, size_max = 60)
-    fig3.show()
-
-    return None
+    d = {'Title' : movieTitles, 'userRating' : userRatings, 'watchGenieRating' : avgWGRatings, 'tmdbRating' : avgTMDBRatings}
+    df = pd.DataFrame(data = d)
+    fig = px.scatter(df, x = 'watchGenieRating', y = 'tmdbRating', size = 'userRating', hover_name = 'Title', log_x = True, size_max = 60)
+    fig.update_layout(height = 600, width = 1400, title_text="Your Bubble Graph")
+    graphJSON = plotly.io.to_json(fig)
+    return graphJSON
 
 def genrePopularityGraph():
     #Genre Popularity over time
     cursor.execute( #may need to change "month" when dates are added to database
-        "SELECT count(rating), genre, rating_date FROM moviegenie.ratings JOIN moviegenie.movies JOIN moviegenie.genres JOIN moviegenie.movie_genre WHERE moviegenie.ratings.movie_id = moviegenie.movies.movie_id AND moviegenie.movies.movie_id = moviegenie.movie_genre.movie_id AND moviegenie.movie_genre.genre_id = moviegenie.genres.genre_id"
+        "SELECT count(rating), genre, rating_date FROM ratings JOIN movies JOIN genres JOIN movie_genre WHERE ratings.movie_id = movies.movie_id AND movies.movie_id = movie_genre.movie_id AND movie_genre.genre_id = genres.genre_id"
     )
     ratingCountPerGenreMonth = cursor.fetchall()
     #may need to group data
@@ -303,7 +299,7 @@ def genrePopularityGraph():
 
 def movie_popularityOT(movie_title):
     cursor.execute(
-        "SELECT count(rating), rating_date FROM moviegenie.ratings JOIN moviegenie.movies WHERE movie_title = moviegenie.movies.title AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+        "SELECT count(rating), rating_date FROM ratings JOIN movies WHERE movie_title = movies.title AND movies.movie_id = ratings.movie_id"
     )
     movieRatingCountAndDate = cursor.fetchall()
     movieRatingCount = []
@@ -319,7 +315,7 @@ def movie_popularityOT(movie_title):
 
     if request.method == 'GET':
         cursor.execute(
-            "SELECT genres FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.movies.movie_id = moviegenie.ratings.movie_id AND moviegenie.users.user_id = moviegenie.ratings.user_id"
+            "SELECT genres FROM movies JOIN ratings JOIN users WHERE movies.movie_id = ratings.movie_id AND users.user_id = ratings.user_id"
         )
         genres = cursor.fetchall()
         
@@ -358,7 +354,7 @@ def movie_popularityOT(movie_title):
 
         #bar chart comparison
         cursor.execute( #Trying to take in all genres of movie reviews of all users
-            "SELECT genres FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+            "SELECT genres FROM movies JOIN ratings JOIN users WHERE movies.movie_id = ratings.movie_id"
         )
         allUsersGenres = cursor.fetchall()
 
@@ -384,7 +380,7 @@ def movie_popularityOT(movie_title):
         allTVMovieCount = allUsersGenres.count('TV Movie')
 
         cursor.execute( #Trying to find total count of users
-            "SELECT count(user_id) FROM moviegenie.users"
+            "SELECT count(user_id) FROM users"
         )
         userCount = cursor.fetchone()[0]
         #Finding averages
@@ -443,7 +439,7 @@ def movie_popularityOT(movie_title):
 
         #bubble chart (y-axis: watchgenie avg rating, x-axiz: imdb avg rating, circle size: user rating)
         cursor.execute(
-            "SELECT title, rating FROM moviegenie.movies JOIN moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.users.user_id = moviegenie.ratings.user_id AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+            "SELECT title, rating FROM movies JOIN ratings JOIN users WHERE users.user_id = ratings.user_id AND movies.movie_id = ratings.movie_id"
         )
         movieTitles_userRatings = cursor.fetchall()
 
@@ -454,12 +450,12 @@ def movie_popularityOT(movie_title):
             userRatings.append(title[1])
 
         cursor.execute(
-            "SELECT avg(rating) FROM moviegenie.ratings JOIN moviegenie.users WHERE moviegenie.users.user_id = moviegenie.ratings.user_id"
+            "SELECT avg(rating) FROM ratings JOIN users WHERE users.user_id = ratings.user_id"
         )
         avgWGRatings = cursor.fetchall()
 
         cursor.execute(
-            "SELECT vote_average FROM moviegenie.movies JOIN moviegenie.users JOIN moviegenie.ratings WHERE moviegenie.users.user_id = moviegenie.ratings.user_id AND moviegenie.movies.movie_id = moviegenie.ratings.movie_id"
+            "SELECT vote_average FROM movies JOIN users JOIN ratings WHERE users.user_id = ratings.user_id AND movies.movie_id = ratings.movie_id"
         )
         avgTMDBRatings = cursor.fetchall()
 

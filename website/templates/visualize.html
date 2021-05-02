@@ -3,6 +3,7 @@
 <head lang="en">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <link rel="stylesheet" href="../static/css/visualize.css">
     <meta charset="UTF-8">
     <title>User Analytics</title>
 </head>
@@ -26,6 +27,13 @@
                     var graph2 = {{plot2 | safe}};  
                     console.log(graph2)
                     Plotly.newPlot('bargraph', graph2.data, graph2.layout); 
+                </script>
+            </div>
+            <div class="chart" id ="bubblechart">
+                <script>
+                    var graph3 = {{plot3 | safe}};
+                    console.log(graph3)
+                    Plotly.newPlot('bubblechart', graph3.data, graph3.layout);
                 </script>
             </div>
         </div>
