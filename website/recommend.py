@@ -12,9 +12,9 @@ users = pd.read_sql('SELECT * FROM users', connection)
 ratings = pd.read_sql('SELECT * FROM ratings', connection)
 movies = pd.read_sql('SELECT * FROM movies', connection)
 
-movie_ratings = pd.merge(ratings, movies, on='movie_id')[['user_id', 'title', 'movie_id','rating']]
+ratings_df = pd.merge(ratings, movies, on='movie_id')[['user_id', 'title', 'movie_id','rating']]
 
-ratings_matrix = movie_ratings.pivot_table(values='rating', index='user_id', columns='title')
+ratings_matrix = ratings_df.pivot_table(values='rating', index='user_id', columns='title')
 ratings_matrix.fillna(0, inplace=True)
 movie_index = ratings_matrix.columns
 
@@ -44,11 +44,13 @@ def get_similar_movies(movie_title):
     movie_idx = list(movie_index).index(movie_title)
     return corr_matrix[movie_idx]
 
-def generate_recommendations(user_movies):
+def get_movie_recommendations(user_movies):
     #given a set of movies, it returns all the movies sorted by their correlation with the user
     movie_similarities = np.zeros(corr_matrix.shape[0])
     for movie_id in user_movies:
         movie_similarities = movie_similarities + get_similar_movies(movie_id)
+
+
         similar_movies_df = pd.DataFrame({
             'title': movie_index,
             'sum_similarity': movie_similarities
@@ -58,14 +60,16 @@ def generate_recommendations(user_movies):
 
 
 def generate_recommendations(userID):
-    movie_ratings[movie_ratings.user_id==userID].sort_values(by=['rating'], ascending=False)
-    # isolate the user we want to provide an review for
-    user_movies = movie_ratings[movie_ratings.user_id==userID].title.tolist()
-    recommendations = generate_recommendations(user_movies)
+    ratings_df[ratings_df.user_id==userID].sort_values(by=['rating'], ascending=False)
+    user_movies = ratings_df[ratings_df.user_id==userID].title.tolist()
+    recommendations = get_movie_recommendations(user_movies)
+    l= 20
+    #We get the top 20 recommended movies
+    innerl = l+24
     rec = recommendations.title.head(50)[20:]
-    results = []
+    recommendations = []
     for item in rec:
         cursor.execute('SELECT movie_id from movies WHERE title = %s', (str(item)))
         movie = cursor.fetchone()
-        results.append(movie['movie_id'])
-    return results
+        recommendations.append(movie['movie_id'])
+    return recommendations
