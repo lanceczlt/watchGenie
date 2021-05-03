@@ -7,14 +7,11 @@
 /*---------------------------------------*/
 /* Register Form */
 /*---------------------------------------*/
-body {
-  background:linear-gradient(to right, black 0%, darkslateblue 50%, black 99%);
-}
 
 .signup-form {
   font-family: "Roboto", sans-serif;
   width:650px;
-  margin: 200px auto;
+  margin: 10px auto;
   background:linear-gradient(to right, #ffffff 0%, #fafafa 50%, #ffffff 99%);
   border-radius: 16px;
 }

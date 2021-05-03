@@ -1,171 +1,130 @@
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="colorlib.com">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
-    <link href="../static/css/search.css" rel="stylesheet" />
-  </head>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="author" content="colorlib.com">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+  <link href="../static/css/search.css" rel="stylesheet" />
+</head>
 
-  {% extends "base.html" %} {% block title %} Search {% endblock %} {% block content %}
-    <div class="s008">
-      <form>
-        <div class="inner-form">
-          <div class="basic-search">
-            <div class="input-field">
-              <input id="search" type="text" placeholder="Search our database" />
-              <div class="icon-wrap">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
-                  <path d="M18.869 19.162l-5.943-6.484c1.339-1.401 2.075-3.233 2.075-5.178 0-2.003-0.78-3.887-2.197-5.303s-3.3-2.197-5.303-2.197-3.887 0.78-5.303 2.197-2.197 3.3-2.197 5.303 0.78 3.887 2.197 5.303 3.3 2.197 5.303 2.197c1.726 0 3.362-0.579 4.688-1.645l5.943 6.483c0.099 0.108 0.233 0.162 0.369 0.162 0.121 0 0.242-0.043 0.338-0.131 0.204-0.187 0.217-0.503 0.031-0.706zM1 7.5c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5-6.5-2.916-6.5-6.5z"></path>
-                </svg>
-              </div>
+{% extends "base.html" %} {% block title %} Search {% endblock %} 
+{% block ptitle %} SEARCH FOR MOVIES {% endblock %}
+{% block content %}
+<div class="s008">
+  <form>
+    <div class="inner-form">
+      <div class="basic-search">
+        <div class="input-field">
+          <input id="search" name="movie_title"type="text" placeholder="Search our movies database" />
+          <div class="icon-wrap">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
+              height="20" viewBox="0 0 20 20">
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="advance-search">
+        <span class="desc">Advanced Search</span>
+        <div class="row">
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="genres">
+                <option placeholder="" value="">Genre</option>
+                <option value="Action">Action</option>
+                <option value="Romance">Romance</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Animation">Animation</option>
+                <option value="Family">Family</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Crime">Crime</option>
+                <option value="Horror">Horror</option>
+                <option value="History">History</option>
+                <option value="Science fiction">Science Fiction</option>
+                <option value="Mystery">Mystery</option>
+                <option value="War">War</option>
+                <option value="Foreign">Foreign</option>
+                <option value="Documentary">Documentary</option>
+                <option value="Drama">Drama</option>
+              </select>
             </div>
           </div>
-          <div class="advance-search">
-            <span class="desc">Advanced Search</span>
-            <div class="row">
-              <div class="input-field">
-                <div class="input-select">
-                  <select data-trigger="" name="genres">
-                    <option placeholder="" value="">Genre</option>
-                    <option>Action</option>
-                    <option>Romance</option>
-                    <option>Comedy</option>
-                    <option>Animation</option>
-                    <option>Family</option>
-                    <option>Adventure</option>
-                    <option>Fantasy</option>
-                    <option>Crime</option>
-                    <option>Horror</option>
-                    <option>History</option>
-                    <option>Science Fiction</option>
-                    <option>Mystery</option>
-                    <option>War</option>
-                    <option>Foreign</option>
-                    <option>Documentary</option>
-                    <option>Drama</option>
-                  </select>
-                </div>
-              </div>
-              <div class="input-field">
-                <div class="input-select">
-                  <select data-trigger="" name="release_date">
-                    <option placeholder="" value="">Year</option>
-                    <option value="2018">2018</option>
-                    <option value="2017">2017</option>
-                    <option value="2016">2016</option>
-                    <option value="2015">2015</option>
-                    <option value="2014">2014</option>
-                    <option value="2013">2013</option>
-                    <option value="2012">2012</option>
-                    <option value="2011">2011</option>
-                    <option value="2010">2010</option>
-                    <option value="2009">2009</option>
-                    <option value="2008">2008</option>
-                    <option value="2007">2007</option>
-                    <option value="2006">2006</option>
-                    <option value="2005">2005</option>
-                    <option value="2004">2004</option>
-                    <option value="2003">2003</option>
-                    <option value="2002">2002</option>
-                    <option value="2001">2001</option>
-                    <option value="2000">2000</option>
-                    <option value="1999">1999</option>
-                    <option value="1998">1998</option>
-                    <option value="1997">1997</option>
-                    <option value="1996">1996</option>
-                    <option value="1995">1995</option>
-                    <option value="1994">1994</option>
-                    <option value="1993">1993</option>
-                    <option value="1992">1992</option>
-                    <option value="1991">1991</option>
-                    <option value="1990">1990</option>
-                    <option value="1989">1989</option>
-                    <option value="1988">1988</option>
-                    <option value="1987">1987</option>
-                    <option value="1986">1986</option>
-                    <option value="1985">1985</option>
-                    <option value="1984">1984</option>
-                    <option value="1983">1983</option>
-                    <option value="1982">1982</option>
-                    <option value="1981">1981</option>
-                    <option value="1980">1980</option>
-                    <option value="1979">1979</option>
-                    <option value="1978">1978</option>
-                    <option value="1977">1977</option>
-                    <option value="1976">1976</option>
-                    <option value="1975">1975</option>
-                    <option value="1974">1974</option>
-                    <option value="1973">1973</option>
-                    <option value="1972">1972</option>
-                    <option value="1971">1971</option>
-                    <option value="1970">1970</option>
-                  </select>
-                </div>
-              </div>
-              <div class="input-field">
-                <div class="input-select">
-                  <select data-trigger="" name="choices-single-defaul">
-                    <option placeholder="" value="">Rating</option>
-                    <option> >= 5</option>
-                    <option> >= 6</option>
-                    <option> >= 7</option>
-                    <option> >= 8</option>
-                    <option> >= 9</option>
-                  </select>
-                </div>
-              </div>
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="release_year">
+                <option placeholder="" value="">Year</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="2009">2009</option>
+                <option value="2008">2008</option>
+                <option value="2007">2007</option>
+                <option value="2006">2006</option>
+                <option value="2005">2005</option>
+                <option value="2004">2004</option>
+                <option value="2003">2003</option>
+                <option value="2002">2002</option>
+                <option value="2001">2001</option>
+                <option value="2000">2000</option>
+                <option value="1999">1999</option>
+                <option value="1998">1998</option>
+                <option value="1997">1997</option>
+                <option value="1996">1996</option>
+                <option value="1995">1995</option>
+                <option value="1994">1994</option>
+                <option value="1993">1993</option>
+                <option value="1992">1992</option>
+                <option value="1991">1991</option>
+                <option value="1990">1990</option>
+                <option value="1989">1989</option>
+                <option value="1988">1988</option>
+                <option value="1987">1987</option>
+                <option value="1986">1986</option>
+                <option value="1985">1985</option>
+                <option value="1984">1984</option>
+                <option value="1983">1983</option>
+                <option value="1982">1982</option>
+                <option value="1981">1981</option>
+                <option value="1980">1980</option>
+                <option value="1979">1979</option>
+                <option value="1978">1978</option>
+                <option value="1977">1977</option>
+                <option value="1976">1976</option>
+                <option value="1975">1975</option>
+                <option value="1974">1974</option>
+                <option value="1973">1973</option>
+                <option value="1972">1972</option>
+                <option value="1971">1971</option>
+                <option value="1970">1970</option>
+              </select>
             </div>
-            <div class="input-field">
-              <div class="group-btn">
-                <button class="btn-delete" id="delete">Reset</button>
-                <button class="btn-search">Search</button>
-              </div>
-            </div>
+          </div>
+          <div class="input-field">
+            <div class="input-select">
+              <select data-trigger="" name="avg_vote">
+                <option placeholder="" value="">Average Rating</option>
+                <option value="5"> Greater Than 5</option>
+                <option value="6"> Greater Than 6</option>
+                <option value="7"> Greater Than 7</option>
+                <option value="8"> Greater Than 8</option>
+                <option value="9"> Greater Than 9</option>
+              </select>
             </div>
           </div>
         </div>
-      </form>
+        <div class="input-field">
+          <div class="group-btn">
+            <button type = "submit" formmethod="post" class="btn-search">Search</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="../static/js/extention/choices.js"></script>
-    <script>
-      const customSelects = document.querySelectorAll("select");
-      const deleteBtn = document.getElementById('delete')
-      const choices = new Choices('select',
-      {
-        searchEnabled: false,
-        removeItemButton: true,
-        itemSelectText: '',
-      });
-      for (let i = 0; i < customSelects.length; i++)
-      {
-        customSelects[i].addEventListener('addItem', function(event)
-        {
-          if (event.detail.value)
-          {
-            let parent = this.parentNode.parentNode
-            parent.classList.add('valid')
-            parent.classList.remove('invalid')
-          }
-          else
-          {
-            let parent = this.parentNode.parentNode
-            parent.classList.add('invalid')
-            parent.classList.remove('valid')
-          }
-        }, false);
-      }
-      deleteBtn.addEventListener("click", function(e)
-      {
-        e.preventDefault()
-        const deleteAll = document.querySelectorAll('.choices__button')
-        for (let i = 0; i < deleteAll.length; i++)
-        {
-          deleteAll[i].click();
-        }
-      });
-
-    </script>
-  {% endblock %}
-</html>
+  </form>
+</div>
+{% endblock %}

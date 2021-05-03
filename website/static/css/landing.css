@@ -1,0 +1,101 @@
+
+#box1 {
+    width: 700px;
+    height: 400px;
+    background: url('../images/b4_logo.png');
+    position: absolute;
+    bottom: -100%;
+    left: 30%;
+    animation: anim 2s forwards, anim2 3s forwards 2s;
+    -webkit-animation: anim 2s forwards, anim2 3s forwards 2s;
+}
+
+#box1::after {
+    content: '';
+    position: absolute;
+    width: 700px;
+    height: 400px;
+    background: url(../images/after_logo.png);
+    left: 0px;
+    z-index: -1;
+}
+
+@keyframes anim {
+    from {
+        bottom: -100%;
+    }
+    to {
+        bottom: 0%;
+    }
+}
+
+@keyframes anim2 {
+    from {
+        left: 30%;
+        width: 530px;
+    }
+    to {
+        width: 0px;
+        left: 50%;
+    }
+}
+
+#box2 {
+    width: auto;
+    height: auto;
+    font-family: 'Bahnschrift Condensed';
+    color: #fff;
+    font-size: 8em;
+    font-weight: 500;
+    line-height: 130px;
+    position: absolute;
+    top: 250px;
+    left: 100px;
+    overflow: hidden;
+}
+
+#text {
+    position: relative;
+    left: -100%;
+    animation: anim3 2s forwards 1s;
+    -webkit-animation: anim3 2s forwards 1s;
+}
+
+#box2LOG {
+    text-align: center;
+    clear:both;
+    width: auto;
+    height: auto;
+    font-family: 'Bahnschrift Condensed';
+    color: #fff;
+    font-size: 3em;
+    font-weight: 500;
+    line-height: 80px;
+    position: relative;
+    padding: 0px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#textLOG {
+    position: relative;
+    left: -100%;
+    animation: anim3 2s forwards 1s;
+    -webkit-animation: anim3 2s forwards 1s;
+}
+@keyframes anim3 {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0%;
+    }
+}
+#menu ul {
+    list-style: none;
+}
+
+#menu ul li {
+    display: inline-block;
+    margin-left: 100px;
+}
