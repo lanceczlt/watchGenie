@@ -51,8 +51,7 @@ a:hover {
   position:absolute;
   overflow: hidden;
   top:0; left:0;
-  background:red;
-  background: url('../images/genie_backdrop.png');
+  background:linear-gradient(to right, darkslateblue, black, darkslateblue);
   z-index:-1;
   
   transform: skewY(-2.2deg);

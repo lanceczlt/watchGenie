@@ -6,7 +6,9 @@
 </head>
 
 {% extends "base.html" %}
-{% block title %} Login {% endblock %}
+{% block title %} Search Results {% endblock %}
+{% block ptitle %} SEARCH RESULTS {% endblock %}
+
 {% block content %}
 <main id="main">
     {% for movie in search_results %}
@@ -26,4 +28,5 @@
     </a>
     {% endfor %}
 </main>
+
 {% endblock %}
