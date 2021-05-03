@@ -1,0 +1,37 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/movie_display.css">
+</head>
+
+{% extends "base.html" %}
+{% block title %} RECOMMENDATIONS {% endblock %}
+{% block ptitle %} WE WORKED OUR MAGIC. ENJOY {% endblock %}
+{% block content %}
+<main id="main">
+    <div class = "movie"> 
+        <form>
+            <button type="submit" formmethod="post">Generate new recommendations</button>
+            <button type="submit" formmethod="post">View previous recommendations</button>
+            <button type="submit" formmethod="post">View ratings you have provided</button>
+        </form>
+    </div>
+    {% for movie in search_results %}
+    {% set link = '/movie_info/' + movie['movie_id']|string %}
+    <a href= {{ link }} >
+        <div class = "movie">
+            <img src = {{ movie['img_url'] }}>
+            <div class="movie-info">
+                <h3> {{ movie['title'] }} </h3>
+                <span class= "green">{{ movie['vote_average'] }}</span>
+            </div>
+            <div class="overview">
+                <h3>Give Rating</h3>
+                {{ movie['overview'] }}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</main>
+
+{% endblock %}

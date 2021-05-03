@@ -85,7 +85,7 @@ def userGenrePie():
     #pie chart
     d = {'Genre': copyGenreList, 'Count': genreCountList}
     df = pd.DataFrame(data=d)
-    fig = px.pie(df, values = 'Count', names = 'Genre')
+    fig = px.pie(df, values = 'Count', names = 'Genre', template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
     fig.update_layout(height = 600, width = 1400, title_text="Your Genres")
     graphJSON = plotly.io.to_json(fig)
     return graphJSON
@@ -275,7 +275,7 @@ def userBubbleChart():
     d = {'Title' : movieTitles, 'userRating' : userRatings, 'watchGenieRating' : avgWGRatings, 'tmdbRating' : avgTMDBRatings}
     df = pd.DataFrame(data = d)
     fig = px.scatter(df, x = 'watchGenieRating', y = 'tmdbRating', size = 'userRating', hover_name = 'Title', log_x = True, size_max = 60)
-    fig.update_layout(height = 600, width = 1400, title_text="Your Bubble Graph")
+    fig.update_layout(height = 600, width = 1400, title_text="Your Bubble Graph", template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
     graphJSON = plotly.io.to_json(fig)
     return graphJSON
 
@@ -309,7 +309,7 @@ def movie_popularity_over_time(movie_id):
         ratingDate.append(rd['rating_date'])
     d = {'Rating Count' : movieRatingCount, 'Date' : ratingDate}
     df = pd.DataFrame(data = d)
-    fig = px.line(df, x = 'date', y = 'Rating Count')
+    fig = px.line(df, x = 'date', y = 'Rating Count', template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
     fig.update_layout(height = 600, width = 1400) #can change dimensions
     fig.update_layout(yaxis = {'visible': False, 'showticklabels': True}) #hide y-axis
     graphJSON = plotly.io.to_json(fig)
