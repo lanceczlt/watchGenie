@@ -1,12 +1,5 @@
-/*---------------------------------------*/
-/* Font */
-/*---------------------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-
-/*---------------------------------------*/
-/* Register Form */
-/*---------------------------------------*/
 
 .signup-form {
   font-family: "Roboto", sans-serif;
@@ -16,9 +9,6 @@
   border-radius: 16px;
 }
 
-/*---------------------------------------*/
-/* Form Header */
-/*---------------------------------------*/
 .form-header  {
   background-color:darkslateblue;
   border-top-left-radius: 10px;
@@ -33,9 +23,6 @@
   border-bottom:1px solid #cccccc;
 }
 
-/*---------------------------------------*/
-/* Form Body */
-/*---------------------------------------*/
 .form-body {
   padding:10px 40px;
   color:#666;
@@ -100,9 +87,6 @@ input[type="file"] {
   color:#d9d9d9;
 }
 
-/*---------------------------------------*/
-/* Form Footer */
-/*---------------------------------------*/
 .signup-form .form-footer  {
   background-color: darkslateblue;
   border-bottom-left-radius: 10px;
@@ -123,6 +107,8 @@ input[type="file"] {
 .btnSUBMIT {
     display: inline-block;
     padding: 10px 20px;
+    height: 60px;
+    width: 130px;
     background-color: lightsalmon;
     font-size: 17px;
     border: none;

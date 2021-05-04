@@ -23,35 +23,42 @@ def home():
 def search():
     if request.method == "POST":
         genre = request.form.get('genres')
-        release_date = request.form.get('release_year')
+        year_start = request.form.get('release_year_start')
+        year_end = request.form.get('release_year_end')
         avg_vote = request.form.get('avg_vote')
         title = request.form.get('movie_title')
 
         parameters = []
         filtering_query = ''
-
+        if(year_start > year_end):
+            flash('Please have your start date before your end date.')
+            return render_template("search.html")
         if genre != '':
             filtering_query += ' AND genre_name = %s'
             parameters.append(genre)
-        if release_date != '':
+        if year_start != '':
             filtering_query += ' AND year(release_date) >= %s'
-            parameters.append(release_date)
+            parameters.append(year_start)
         if avg_vote != '':
             filtering_query += ' AND vote_average >= %s'
             parameters.append(avg_vote)
         if title != '':
             filtering_query += ' AND MATCH(title) AGAINST (%s IN NATURAL LANGUAGE MODE)'
             parameters.append(title)
-        search_query = "SELECT distinct m1.movie_id, title, overview, budget, popularity, release_date, revenue, duration, vote_average, vote_count FROM movies as m1 JOIN movie_genre ON m1.movie_id=movie_genre.movie_id JOIN genres ON movie_genre.genre_id=genres.genre_id WHERE '' = '' " + filtering_query + ' GROUP BY movie_id ORDER BY popularity desc LIMIT 20'
+        search_query = "SELECT distinct m1.movie_id, title, overview, popularity, release_date, duration, vote_average FROM movies as m1 JOIN movie_genre ON m1.movie_id=movie_genre.movie_id JOIN genres ON movie_genre.genre_id=genres.genre_id WHERE '' = '' " + filtering_query + ' GROUP BY movie_id ORDER BY popularity desc LIMIT 15'
+        print(search_query)
+        print(str(parameters))
         cursor.execute(search_query, tuple(parameters))
         search_results=cursor.fetchall()
-        print(len(search_results))
-        for result in search_results:
-            result['img_url']=get_movie_image(result['movie_id'])
-        session['results'] = search_results
-        return redirect(url_for('views.result'))
-    else:
-        return render_template("search.html")
+        if len(search_results) != 0:
+            
+            for result in search_results:
+                result['img_url']=get_movie_image(result['movie_id'])
+            session['results'] = search_results
+            return redirect(url_for('views.result'))
+        else:
+            flash('Sorry, we got nothing! Please try again!', category='error')
+    return render_template("search.html")
 
 @ views.route('/result', methods=['GET', 'POST'])
 def result():

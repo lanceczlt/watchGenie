@@ -136,7 +136,7 @@ p:focus {
     }    
 }
 
-button {
+.rec-btn {
     background: black;
     color: white;
     font-family: 'Exo 2', sans-serif;
@@ -149,6 +149,7 @@ button {
     border-radius: 12px;  
 }
 
-button:hover {
+.rec-btn:hover {
   background: #3071A9
 }
+

@@ -7,6 +7,9 @@ connect, cursor = connect()
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in session:
+        return render_template("landing.html")
+
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -20,22 +23,19 @@ def login():
                 session['id'] = user['user_id']
                 session['username'] = email
                 flash('You have logged in!', category='success')
-                return redirect(url_for('views.search'))
+                return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, please try again.', category='error')
         else:
             flash('Email does not exist, please try again.', category='error')
-    else:
-        if 'username' in session:
-            return render_template("landing.html")
-        else:
-            return render_template("login.html")
+    return render_template("login.html")
 
 @auth.route('/logout')
 def logout():
     session.pop('logged_in', None)
     session.pop('id', None)
     session.pop('username', None)
+    flash('You have logged out!', category='success')
     return redirect(url_for('auth.login'))
 
 
@@ -56,13 +56,15 @@ def sign_up():
             "SELECT * FROM users WHERE email = %s", email)
         user = cursor.fetchone()
         if user:
-            flash('Email already exists.', category='error')
+            flash('It appears your email already exists.', category='error')
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
-        elif len(first_name) < 2:
-            flash('First name must be greater than 1 character.', category='error')
-        elif len(last_name) < 2:
-            flash('Last name must be greater than 1 character.', category='error')
+        elif len(first_name) == 0:
+            flash('Please do not leave first name blank.', category='error')
+        elif len(last_name) == 0:
+            flash('Please do not leave last name blank.', category='error')
+        elif len(gender) == 0:
+            flash('Please do not leave the gender blank.', category='error')
         elif password1 != password2:
             flash('Passwords does not match.', category='error')
         elif len(password1) < 7:
@@ -72,8 +74,8 @@ def sign_up():
             new_id = cursor.fetchone()['max'] + 1
             cursor.execute("INSERT INTO users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                            (new_id, first_name, last_name, email, password1, age, gender))
+            print((new_id, first_name, last_name, email, password1, age, gender))
             connect.commit()
             flash('Account created!', category='success')
-            return redirect(url_for('auth.login'))
-    else:
-        return render_template("sign_up.html")
+            return redirect(url_for('auth.login')) 
+    return render_template("sign_up.html")
