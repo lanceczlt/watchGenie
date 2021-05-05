@@ -6,14 +6,14 @@
 
 {% extends "base.html" %}
 {% block title %} RECOMMENDATIONS {% endblock %}
-{% block ptitle %} WE WORKED OUR MAGIC. ENJOY {% endblock %}
+{% block ptitle %} {{ title }} {% endblock %}
 {% block content %}
 <main id="main">
     <div class = "movie"> 
         <form>
-            <button class="rec-btn" type="submit" formmethod="post">Generate new recommendations</button>
-            <button class="rec-btn" type="submit" formmethod="post">View previous recommendations</button>
-            <button class="rec-btn" type="submit" formmethod="post">View ratings you have provided</button>
+            <a class="rec-btn" type="submit" href='/recommendation/update'>Generate new recommendations</a>
+            <a class="rec-btn" type="submit" href='/recommendation/previous'>View previous recommendations</a>
+            <a class="rec-btn" type="submit" href='/recommendation/ratings'>View ratings you have provided</a>
         </form>
     </div>
     {% for movie in search_results %}

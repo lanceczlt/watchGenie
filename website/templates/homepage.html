@@ -8,7 +8,43 @@
 {% block title %} Homepage {% endblock %} 
 {% block ptitle %} MOVIES TRENDING NOW {% endblock %}
 {% block content %}
-    <main id="main">
-    </main>
-    <script src="../static/js/movie_display.js"></script>
-{% endblock %} 
+<main id="main">
+    {% for movie in trending %}
+    {% set link = '/movie_info/' + movie['movie_id']|string %}
+    <a href= {{ link }} >
+        <div class = "movie">
+            <img src = {{ movie['img_url'] }}>
+            <div class="movie-info">
+                <h3> {{ movie['title'] }} </h3>
+                <span class= "green">{{ movie['vote_average'] }}</span>
+            </div>
+            <div class="overview">
+                <h3>Overview</h3>
+                {{ movie['overview'] }}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</main>
+<div id="spacers">
+    <p id="bigtext">Latest Reviews by Other Users</p>
+</div>
+<main id="main">
+    {% for movie in latest %}
+    {% set link = '/movie_info/' + movie['movie_id']|string %}
+    <a href= {{ link }} >
+        <div class = "movie">
+            <img src = {{ movie['img_url'] }}>
+            <div class="movie-info">
+                <h3> {{ movie['title'] }} </h3>
+                <span class= "green">{{ movie['vote_average'] }}</span>
+            </div>
+            <div class="overview">
+                <h3>Overview</h3>
+                {{ movie['overview'] }}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</main>
+{% endblock %}

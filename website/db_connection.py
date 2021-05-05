@@ -11,7 +11,7 @@ IMG_URL = 'https://image.tmdb.org/t/p/w500'
 def connect():
     try:
         connect = pymysql.connect(
-        user = 'root', password = 'password', host = 'localhost', database = 'watchGenie',
+        user = 'root', password = 'password', host = 'localhost', database = 'movieGenie',
         )
         cursor = connect.cursor(pymysql.cursors.DictCursor)
         return connect, cursor
@@ -23,4 +23,9 @@ def get_movie_image(movie_id):
     searchURL = BASE_URL + str(movie_id) + API_KEY
     response = requests.get(searchURL)
     data = response.json()
-    return IMG_URL + str(data['poster_path'])
+    if 'poster_path' in data and data['poster_path'] != None:
+        print(data['poster_path'])
+        return IMG_URL + str(data['poster_path'])
+    else:
+        # if no movie image found, replace with a placeholder png
+        return 'https://www.altavod.com/assets/images/poster-placeholder.png'

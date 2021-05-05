@@ -13,13 +13,6 @@ visualize = Blueprint('visualize', __name__)
 connection, cursor = connect()
 genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance', 'Drama', 'Action', 'Crime', 'Thriller', 'Horror', 'History', 'Science Fiction', 'Mystery', 'War', 'Foreign', 'Music', 'Documentary', 'Western', 'TV Movie']
 
-@visualize.route('/visualization', methods=['GET', 'POST'])
-def user_visualization():
-    pie1 = userGenrePie()
-    bar1 = userCompareBar()
-    bubble1 = userBubbleChart()
-    return render_template('visualize.html', plot1 = pie1, plot2 = bar1, plot3 = bubble1)
-
 def userGenrePie():
     user_id = session['id']
     cursor.execute("SELECT genre_name FROM movies JOIN ratings ON movies.movie_id = ratings.movie_id JOIN users ON users.user_id = ratings.user_id JOIN movie_genre ON movies.movie_id = movie_genre.movie_id JOIN genres ON movie_genre.genre_id = genres.genre_id WHERE users.user_id = %s",(user_id))

@@ -19,6 +19,9 @@ def login():
         print(user)
         if user:
             if password == user['password']:
+                cursor.execute('select count(rating) as ratings_count from users join ratings on users.user_id = ratings.user_id where users.user_id = %s',user['user_id'])
+                ratings_provided = cursor.fetchone()
+                session['ratings_provided'] = ratings_provided['ratings_count']
                 session['logged_in'] = True
                 session['id'] = user['user_id']
                 session['username'] = email
@@ -63,7 +66,7 @@ def sign_up():
             flash('Please do not leave first name blank.', category='error')
         elif len(last_name) == 0:
             flash('Please do not leave last name blank.', category='error')
-        elif len(gender) == 0:
+        elif gender is None:
             flash('Please do not leave the gender blank.', category='error')
         elif password1 != password2:
             flash('Passwords does not match.', category='error')

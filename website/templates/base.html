@@ -26,7 +26,7 @@
             <a id="home" href="/home"> HOME</a>
           </li>
           <li>
-            <a id="recommendations" href="/recommendation">
+            <a id="recommendations" href="/recommendation/">
               YOUR RECOMMENDATION</a
             >
           </li>
@@ -51,22 +51,14 @@
       </div>
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %} {% for category, message in messages %} {% if category ==
-      'error' %}
-      <div class="alert alert-danger alter-dismissable fade show" role="alert" style="background:black;">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% else %}
+      messages %} {% for category, message in messages %}
       <div class="alert alert-success alter-dismissable fade show" role="alert" style="background:linear-gradient(to right, darkslateblue,black,darkslateblue); color:white; text-align: center;">
         {{ message }}
-        <button type="button" class="close" data-dismiss="alert">
+        <button type="button" class="close" data-dismiss="alert" style = 'background-color: navajowhite;'>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      {% endif %} {% endfor %} {% endif %} {% endwith %}
+      {% endfor %} {% endif %} {% endwith %}
     <div id="spacers">
       <p id="bigtext">{% block ptitle %}{% endblock %}</p>
     </div>
