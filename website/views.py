@@ -14,9 +14,6 @@ search_results = []
 
 @views.route('/', methods=['GET', 'POST'])
 def landing():
-    if 'username' in session:
-        flash('Please login first!')
-        return render_template("homepage.html")
     return render_template("landing.html")
 
 
@@ -126,7 +123,7 @@ def recommendation(action = None):
     if action == 'update':
         gen_recs = generate_recommendations(1)
         for rec in gen_recs:
-            cursor.execute("INSERT INTO user_rec(user_id, movie_id, have_watched, current_rec) VALUES (%s,%s,%s,%s)", (1, rec, '0', '0'))
+            cursor.execute("INSERT INTO cur_rec(user_id, movie_id, have_watched) VALUES (%s,%s,%s)", (1, rec, '0'))
             connection.commit()
         return render_template('recommendation.html', search_results = gen_recs, title = 'New recommendations generated! MAGIC!')
     elif action == 'previous':
@@ -141,7 +138,7 @@ def recommendation(action = None):
         for rec in prev_ratings:
                 rec['img_url'] = get_movie_image(rec['movie_id'])
         return render_template('recommendation.html', search_results = prev_ratings, title = 'Movies you have rated previously')            
-    rec_query="select * from users join user_rec on users.user_id = user_rec.user_id where users.user_id = %s"
+    rec_query="select * from users join cur_rec on users.user_id = cur_rec.user_id where users.user_id = %s"
     cursor.execute(rec_query, '1')
     mov_recs = cursor.fetchall()
     for rec in mov_recs:

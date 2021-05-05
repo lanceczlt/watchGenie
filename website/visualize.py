@@ -9,7 +9,6 @@ import pandas as pd
 import numpy as np
 import json
 
-visualize = Blueprint('visualize', __name__)
 connection, cursor = connect()
 genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance', 'Drama', 'Action', 'Crime', 'Thriller', 'Horror', 'History', 'Science Fiction', 'Mystery', 'War', 'Foreign', 'Music', 'Documentary', 'Western', 'TV Movie']
 
@@ -212,31 +211,6 @@ def userCompareBar():
         avgWesternCount,
         avgTVMovieCount
     ]
-
-    # fig = make_subplots(rows=1, cols=2)
-
-    # fig.add_trace(
-    #     go.Bar(name = 'You', x = genreList, y = genreCountList),
-    #     row=1, col=1
-    # )
-
-    # fig.add_trace(
-    #     go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList),
-    #     row=1, col=1
-    # )
-
-    # fig.add_trace(
-    #     go.Bar(name = 'You', x = genreList, y = genreCountList),
-    #     row=1, col=2
-    # )
-
-    # fig.add_trace(
-    #     go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList),
-    #     row=1, col=2
-    # )
-
-    # fig.update_layout(height=600, width=1400, title_text="Side By Side Subplots")
-
     fig = go.Figure(data=[
         go.Bar(name = 'You', x = genreList, y = genreCountList),
         go.Bar(name = 'Average User', x = genreList, y = avgGenreCountList)
@@ -244,7 +218,6 @@ def userCompareBar():
     fig.update_layout(barmode = 'group')
     fig.update_layout(height = 600, width = 1400, title_text="Your Genres vs. Average WatchGenie User Genres")
     graphJSON = plotly.io.to_json(fig)
-    # graphJSON = json.dumps(data, cls = plotly.utils.PlotlyJSONEncoder)
     return graphJSON
 
 def userBubbleChart():
