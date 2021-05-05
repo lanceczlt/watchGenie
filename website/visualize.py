@@ -224,7 +224,7 @@ def userBubbleChart():
     user_id = session['id']
     #bubble chart (y-axis: watchgenie avg rating, x-axiz: imdb avg rating, circle size: user rating)
     cursor.execute(
-        "SELECT m1.title, t2.rating, avg(r1.rating) as user_base_avg, m1.vote_average as tmdb_avg FROM movies as m1 JOIN (SELECT m2.movie_id, r2.rating FROM movies as m2 JOIN ratings as r2 ON m2.movie_id = r2.movie_id JOIN users ON r2.user_id = users.user_id WHERE users.user_id = %s) as t2 ON m1.movie_id = t2.movie_id JOIN ratings as r1 ON m1.movie_id = r1.movie_id GROUP BY (m1.movie_id)",(user_id)
+        "SELECT m1.title, t2.rating, avg(r1.rating) as user_base_avg, m1.vote_average/2 as tmdb_avg FROM movies as m1 JOIN (SELECT m2.movie_id, r2.rating FROM movies as m2 JOIN ratings as r2 ON m2.movie_id = r2.movie_id JOIN users ON r2.user_id = users.user_id WHERE users.user_id = %s) as t2 ON m1.movie_id = t2.movie_id JOIN ratings as r1 ON m1.movie_id = r1.movie_id GROUP BY (m1.movie_id)",(user_id)
     )
     bubbleAllList = cursor.fetchall()
     movieTitles = []

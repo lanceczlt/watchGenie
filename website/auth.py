@@ -51,6 +51,7 @@ def sign_up():
         email = request.form.get('email')
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
+        name = first_name + ' ' + last_name
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         age = request.form.get('age')
@@ -75,9 +76,8 @@ def sign_up():
         else:
             cursor.execute("SELECT MAX(user_id) as max FROM users")
             new_id = cursor.fetchone()['max'] + 1
-            cursor.execute("INSERT INTO users (user_id, first_name, last_name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                           (new_id, first_name, last_name, email, password1, age, gender))
-            print((new_id, first_name, last_name, email, password1, age, gender))
+            cursor.execute("INSERT INTO users (user_id, name, email, password, age, gender) VALUES (%s, %s, %s, %s, %s, %s)",
+                           (new_id, name, email, password1, age, gender))
             connect.commit()
             flash('Account created!', category='success')
             return redirect(url_for('auth.login')) 

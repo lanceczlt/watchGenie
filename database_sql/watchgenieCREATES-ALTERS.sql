@@ -124,8 +124,6 @@ ALTER TABLE `prev_rec` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`
 
 ALTER TABLE `prev_rec` ADD FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`) ON DELETE CASCADE;
 
-ALTER TABLE `movies` ADD FOREIGN KEY (`movie_id`) REFERENCES `movies` (`title`) ON DELETE CASCADE;
-
 ALTER TABLE `person` ADD FOREIGN KEY (`person_id`) REFERENCES `users` (`person_id`) ON DELETE CASCADE;
 
 ALTER TABLE `person` ADD FOREIGN KEY (`person_id`) REFERENCES `actors` (`person_id`) ON DELETE CASCADE;

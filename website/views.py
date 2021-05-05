@@ -14,6 +14,8 @@ search_results = []
 
 @views.route('/', methods=['GET', 'POST'])
 def landing():
+    if 'username' in session:
+        return redirect(url_for('views.home'))
     return render_template("landing.html")
 
 
@@ -25,9 +27,9 @@ def home():
     current_date = datetime.now()
     # get last month's date in order to give the currently popular movies
     last_month = current_date + dateutil.relativedelta.relativedelta(years=-1)
-    cursor.execute("select m.movie_id, title, overview, popularity, release_date, duration, vote_average from (select distinct movies.movie_id, avg(rating) as avg_rating from ratings join movies on movies.movie_id = ratings.movie_id where rating_date >= %s group by movies.movie_id order by count(movies.movie_id)) as m join movies on movies.movie_id = m.movie_id where avg_rating > 3.5 LIMIT 10", (last_month))
+    cursor.execute("select m.movie_id, title, overview, popularity, release_date, runtime, vote_average from (select distinct movies.movie_id, avg(rating) as avg_rating from ratings join movies on movies.movie_id = ratings.movie_id where rating_date >= %s group by movies.movie_id order by count(movies.movie_id)) as m join movies on movies.movie_id = m.movie_id where avg_rating > 3.5 LIMIT 10", (last_month))
     trending = cursor.fetchall()
-    cursor.execute("select movies.movie_id, title, overview, popularity, release_date, duration, vote_average from movies join ratings on movies.movie_id = ratings.movie_id order by rating_date desc limit 10")
+    cursor.execute("select movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from movies join ratings on movies.movie_id = ratings.movie_id order by rating_date desc limit 10")
     latest = cursor.fetchall()
 
     for movie in trending:
@@ -67,11 +69,10 @@ def search():
         if title != '':
             filtering_query += ' AND MATCH(title) AGAINST (%s IN NATURAL LANGUAGE MODE)'
             parameters.append(title)
-        search_query = "SELECT distinct m1.movie_id, title, overview, popularity, release_date, duration, vote_average FROM movies as m1 JOIN movie_genre ON m1.movie_id=movie_genre.movie_id JOIN genres ON movie_genre.genre_id=genres.genre_id WHERE '' = '' " + filtering_query + ' GROUP BY movie_id LIMIT 20'
+        search_query = "SELECT distinct m1.movie_id, title, overview, popularity, release_date, runtime, vote_average FROM movies as m1 JOIN movie_genre ON m1.movie_id=movie_genre.movie_id JOIN genres ON movie_genre.genre_id=genres.genre_id WHERE '' = '' " + filtering_query + ' GROUP BY movie_id LIMIT 20'
         cursor.execute(search_query, tuple(parameters))
         search_results=cursor.fetchall()
         if len(search_results) != 0:
-            
             for result in search_results:
                 result['img_url']=get_movie_image(result['movie_id'])
             session['results'] = search_results
@@ -100,6 +101,7 @@ def movie_info(movie_id=None):
         cursor.execute('INSERT INTO ratings(user_id, movie_id, rating, rating_date) VALUES (%s,%s,%s,%s)',(session['id'], movie_id, rating, datetime.now())) 
         connection.commit()
         session['ratings_provided'] += 1
+        flash('Rating updated!')
 
     cursor.execute("select * from movies where movie_id = %s", movie_id)
     movie_info=cursor.fetchone()
@@ -121,25 +123,27 @@ def recommendation(action = None):
             flash('Please provide at least 5 ratings before you can generate any recommendations or see your data!')
             return redirect(url_for('views.search'))
     if action == 'update':
-        gen_recs = generate_recommendations(1)
+        gen_recs = generate_recommendations(session['id'])
         for rec in gen_recs:
-            cursor.execute("INSERT INTO cur_rec(user_id, movie_id, have_watched) VALUES (%s,%s,%s)", (1, rec, '0'))
+            cursor.execute("INSERT INTO cur_rec(user_id, movie_id, have_watched) VALUES (%s,%s,%s)", (session['id'], rec, 0))
             connection.commit()
+        for rec in gen_recs:
+                rec['img_url'] = get_movie_image(rec['movie_id']) 
         return render_template('recommendation.html', search_results = gen_recs, title = 'New recommendations generated! MAGIC!')
     elif action == 'previous':
-        cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, duration, vote_average from prev_rec join users on prev_rec.user_id = users.user_id join movies on movies.movie_id = prev_rec.movie_id where users.user_id = %s', session['id'])
+        cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from prev_rec join users on prev_rec.user_id = users.user_id join movies on movies.movie_id = prev_rec.movie_id where users.user_id = %s', session['id'])
         prev_recs = cursor.fetchall()
         for rec in prev_recs:
-                rec['img_url'] = get_movie_image(rec['movie_id'])
+                rec['img_url'] = get_movie_image(rec['movie_id'])   
         return render_template('recommendation.html', search_results = prev_recs, title = 'Here are some older recommendations')
     elif action == 'ratings':
-        cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, duration, vote_average from ratings join users on ratings.user_id = users.user_id join movies on movies.movie_id = ratings.movie_id where users.user_id = %s', session['id'])
+        cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from ratings join users on ratings.user_id = users.user_id join movies on movies.movie_id = ratings.movie_id where users.user_id = %s', session['id'])
         prev_ratings = cursor.fetchall()
         for rec in prev_ratings:
                 rec['img_url'] = get_movie_image(rec['movie_id'])
         return render_template('recommendation.html', search_results = prev_ratings, title = 'Movies you have rated previously')            
     rec_query="select * from users join cur_rec on users.user_id = cur_rec.user_id where users.user_id = %s"
-    cursor.execute(rec_query, '1')
+    cursor.execute(rec_query, session['id'])
     mov_recs = cursor.fetchall()
     for rec in mov_recs:
                 rec['img_url'] = get_movie_image(rec['movie_id'])
