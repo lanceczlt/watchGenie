@@ -1,16 +1,19 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from .db_connection import connect, get_movie_image
 from .recommend import generate_recommendations
+from datetime import datetime
 import json
 
 views = Blueprint('views', __name__)
-connect, cursor = connect()
+connection, cursor = connect()
 
 search_results = []
 
 
 @views.route('/', methods=['GET', 'POST'])
 def landing():
+    if 'username' in session:
+        return render_template("homepage.html")
     return render_template("landing.html")
 
 
@@ -69,11 +72,20 @@ def result():
 @ views.route('/movie_info/', methods=['GET', 'POST'])
 @ views.route('/movie_info/<movie_id>', methods=['GET', 'POST'])
 def movie_info(movie_id=None):
-    movie_query="select * from movies where movie_id = %s"
-    cursor.execute(movie_query, movie_id)
+    if request.method == 'POST':
+        rating = request.form.get('rating')
+        cursor.execute('INSERT INTO ratings(user_id, movie_id, rating, rating_date) VALUES (%s,%s,%s,%s)',(session['id'], movie_id, rating, datetime.now())) 
+        connection.commit()
+
+    cursor.execute("select * from movies where movie_id = %s", movie_id)
     movie_info=cursor.fetchone()
     movie_info['img_url']=get_movie_image(movie_id)
-    return render_template('movie_info.html', info=movie_info)
+
+    cursor.execute("SELECT * FROM ratings JOIN movies on movies.movie_id = ratings.movie_id WHERE movies.movie_id = %s AND ratings.user_id = %s", (movie_id, session['id']))
+    user_rating = cursor.fetchone()
+    if user_rating:
+        return render_template('movie_info.html', info=movie_info, user_rating = user_rating['rating'])
+    return render_template('movie_info.html', info=movie_info, user_rating = 2.5)
 
 @ views.route('/recommendation', methods=['GET', 'POST'])
 def recommendation():
@@ -81,6 +93,7 @@ def recommendation():
         gen_recs = generate_recommendations(1)
         for rec in gen_recs:
                 cursor.execute("INSERT INTO user_rec(user_id, movie_id, have_watched, current_rec) VALUES (%s,%s,%s,%s)", (1, rec, '0', '0'))
+                connection.commit()
                 
     rec_query="select * from users join user_rec on users.user_id = user_rec.user_id where users.user_id = %s"
     cursor.execute(rec_query, '1')
