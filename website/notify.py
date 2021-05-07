@@ -1,30 +1,49 @@
-from flask import Flask
+from flask import Flask, render_template, request, Blueprint, session
 from flask_mail import Mail, Message
+import socket
+from .db_connection import connect
 
-app = Flask(__name__)
+connection, cursor = connect()
 
-app.config['DEBUG'] = True
-app.config['TESTING'] = False
-app.config['MAIL_SERVER'] = 'stmp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USE_SSL'] =  False
-#app.config['MAIL_DEBUG'] = True 
-app.config['MAIL_USERNAME'] = 'superjirachi123@gmail.com'
-#add password for email later
-app.config['MAIL_PASSWORD'] = ''
-app.config['MAIL_DEFAULT_SENDER'] = 'superjirachi123@gmail.com'
-app.config['MAIL_MAX_EMAILS'] = 10
-#app.config['MAIL_SURPRESS_SEND'] =  False
-app.config['MAIL_ASCII_ATTACHMENTS'] = False
 
-mail = Mail(app)
 
-@app.route('/notify')
-def index():
-    msg = Message('Hey There, here is your movie recommendation of the week!', recipients=['llc52@case.edu'])
-    msg.body = 'This is a test email'
-    mail.send(msg)
 
-    return 'Message has been sent!'
+    # msg = Message(
+    #     subject='',
+    #     recipients=[],
+    #     body='',
+    #     html='',
+    #     sender='',
+    #     cc=[],
+    #     bcc=[],
+    #     attachments=[],
+    #     reply_to=[],
+    #     date= 'date',
+    #     charset= '',
+    #     extra_headers= {'headername' : 'headervalue'},
+    #     #mail options from esmtp
+    #     mail_options=[],
+    #     rcpt_options=[]
+
+
+    # )
+
+
+
+def send_bulk_mail():
+    user_id = session['id']
+
+    users = [{ 'name' : '', 'email' : 'email@gmail.com'}] 
+
+    usersList = []
+    with mail.connect() as conn:
+        for user in usersList:
+            msg = Message('Bulk!', recipients=[user['email']])
+            msg.body = 'Hey There, here is your movie recommendation of the week!, so exciting'
+            conn.send(msg)
+
+
+
+
+
 
