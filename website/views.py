@@ -144,6 +144,8 @@ def recommendation(action = None):
         prev_recs = cursor.fetchall()
         for rec in prev_recs:
                 rec['img_url'] = get_movie_image(rec['movie_id'])   
+        if not rec:
+            flash('Hmm. It seems like you do not have any past recommendations. Click Generate new recommendations!')
         return render_template('recommendation.html', search_results = prev_recs, title = 'Here are some older recommendations')
 
 
@@ -152,11 +154,13 @@ def recommendation(action = None):
         prev_ratings = cursor.fetchall()
         for rec in prev_ratings:
                 rec['img_url'] = get_movie_image(rec['movie_id'])
+        if not rec:
+            flash('Hmm. It seems like you have not rated any movies. Click Search to get started!')
         return render_template('recommendation.html', search_results = prev_ratings, title = 'Movies you have rated previously')  
 
 
-    rec_query="select * from users join cur_rec on users.user_id = cur_rec.user_id where users.user_id = %s"
-    cursor.execute(rec_query, session['id'])
+    rec_query="select * from users join cur_rec on users.user_id = cur_rec.user_id where users.user_id = %s and cur_rec.movie_id not in (select movie_id from ratings where user_id = %s)"
+    cursor.execute(rec_query, (session['id'],session['id']) )
     mov_recs = cursor.fetchall()
     for rec in mov_recs:
                 rec['img_url'] = get_movie_image(rec['movie_id'])

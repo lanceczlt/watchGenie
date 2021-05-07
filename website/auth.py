@@ -21,10 +21,10 @@ def login():
             if password == user['password']:
                 cursor.execute('select count(rating) as ratings_count from users join ratings on users.user_id = ratings.user_id where users.user_id = %s',user['user_id'])
                 ratings_provided = cursor.fetchone()
-                session['ratings_provided'] = ratings_provided['ratings_count']
                 session['logged_in'] = True
                 session['id'] = user['user_id']
                 session['username'] = email
+                session['ratings_provided'] = ratings_provided['ratings_count']
                 flash('You have logged in!', category='success')
                 return redirect(url_for('views.home'))
             else:
