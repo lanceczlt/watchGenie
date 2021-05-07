@@ -1,75 +1,54 @@
 from flask import Blueprint, render_template, request, flash, jsonify, session
 from .db_connection import connect
-import numpy as np 
-import pandas as pd 
-import scipy.optimize 
+import numpy as np
+import pandas as pd
+import scipy.optimize
+from surprise import Dataset, Reader, SVD, accuracy
+from surprise.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 connection, cursor = connect()
-recommend = Blueprint('recommend', __name__)
 
-cursor.execute('SELECT * FROM users')
-users = pd.read_sql('SELECT * FROM users', connection)
-ratings = pd.read_sql('SELECT * FROM ratings', connection)
-movies = pd.read_sql('SELECT * FROM movies', connection)
+movies = pd.read_sql('SELECT m1.movie_id, title, GROUP_CONCAT(DISTINCT genre_name SEPARATOR \' \') as genres FROM movies as m1 JOIN movie_genre ON m1.movie_id = movie_genre.movie_id JOIN genres ON movie_genre.genre_id = genres.genre_id GROUP BY (m1.movie_id)', connection)
+ratings = pd.read_sql(
+    'SELECT user_id, movie_id, rating FROM ratings', connection)
+tags = pd.read_sql(
+    'SELECT movie_id, tag_name as tag FROM movie_tag JOIN tags on movie_tag.tag_id = tags.tag_id', connection)
+ratings_f = ratings.groupby('user_id').filter(lambda x: len(x) >= 55)
+movie_list_rating = ratings_f.movie_id.unique().tolist()
+movies = movies[movies.movie_id.isin(movie_list_rating)]
+Mapping_file = dict(zip(movies.title.tolist(), movies.movie_id.tolist()))
 
-ratings_df = pd.merge(ratings, movies, on='movie_id')[['user_id', 'title', 'movie_id','rating']]
+mixed = pd.merge(movies, tags, on='movie_id', how='left')
+mixed.fillna("", inplace=True)
+mixed = pd.DataFrame(mixed.groupby('movie_id')[
+                     'tag'].apply(lambda x: "%s" % ' '.join(x)))
+Final = pd.merge(movies, mixed, on='movie_id', how='left')
+Final['metadata'] = Final[['tag', 'genres']].apply(
+    lambda x: ' '.join(x), axis=1)
 
-ratings_matrix = ratings_df.pivot_table(values='rating', index='user_id', columns='title')
-ratings_matrix.fillna(0, inplace=True)
-movie_index = ratings_matrix.columns
-
-corr_matrix = np.corrcoef(ratings_matrix.T)
-corr_matrix.shape
-
-# given a list of genres and a language, return the top movies
-# for the registration user interest learning process
-def getTopMovies(genres, language):
-    return None
-
-def content_based_rec():
-    return None
-
-def plot_based_rec():
-    return None
-
-def collaboration_based_rec():
-    return None
-
-def searchMovies(movie_title):
-    cursor.execute('SELECT DISTINCT movies.title, links.imdb_id from movies, links WHERE links.movie_id = movies.movie_id AND movies.title LIKE %s', ("%" + str(title) + "%"))
-    return cursor.fetchall()
-
-# correlation vector of movies
-def get_similar_movies(movie_title):
-    movie_idx = list(movie_index).index(movie_title)
-    return corr_matrix[movie_idx]
-
-def get_movie_recommendations(user_movies):
-    #given a set of movies, it returns all the movies sorted by their correlation with the user
-    movie_similarities = np.zeros(corr_matrix.shape[0])
-    for movie_id in user_movies:
-        movie_similarities = movie_similarities + get_similar_movies(movie_id)
+reader = Reader(rating_scale=(1, 5))
+data = Dataset.load_from_df(ratings, reader)
+trainset, testset = train_test_split(data, test_size=.25)
+algorithm = SVD()
+algorithm.fit(trainset)
 
 
-        similar_movies_df = pd.DataFrame({
-            'title': movie_index,
-            'sum_similarity': movie_similarities
-        })
-    similar_movies_df = similar_movies_df.sort_values(by=['sum_similarity'], ascending=False)
-    return similar_movies_df
-
-
-def generate_recommendations(userID):
-    ratings_df[ratings_df.user_id==userID].sort_values(by=['rating'], ascending=False)
-    user_movies = ratings_df[ratings_df.user_id==userID].title.tolist()
-    recommendations = get_movie_recommendations(user_movies)
-    l= 20
-    #We get the top 20 recommended movies
-    innerl = l+24
-    rec = recommendations.title.head(50)[20:]
-    recommendations = []
-    for item in rec:
-        cursor.execute('SELECT movie_id from movies WHERE title = %s', (str(item)))
-        movie = cursor.fetchone()
-        recommendations.append(movie['movie_id'])
-    return recommendations
+def generate_recommendations(user_id):
+    ui_list = ratings[ratings.user_id == user_id].movie_id.tolist()
+    d = {k: v for k, v in Mapping_file.items() if not v in ui_list}
+    predictedL = []
+    for i, j in d.items():
+        predicted = algorithm.predict(user_id, j)
+        predictedL.append((i, predicted[3]))
+    pdf = pd.DataFrame(predictedL, columns=['movie_title', 'rating'])
+    pdf.sort_values('rating', ascending=False, inplace=True)
+    pdf.set_index('movie_title', inplace=True)
+    results = pdf.head(20)
+    movie_recs = results.index.tolist()
+    recs = []
+    for mov in movie_recs:
+        cursor.execute(
+            'select movie_id from movies where title = %s order by popularity', str(mov))
+        recs.append(cursor.fetchone()['movie_id'])
+    return recs

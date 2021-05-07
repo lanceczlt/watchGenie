@@ -11,7 +11,7 @@ IMG_URL = 'https://image.tmdb.org/t/p/w500'
 def connect():
     try:
         connect = pymysql.connect(
-        user = 'root', password = 'password', host = 'localhost', database = 'movieGenie',
+        user = 'root', password = 'tt156383', host = 'localhost', database = 'watchGenie',
         )
         cursor = connect.cursor(pymysql.cursors.DictCursor)
         return connect, cursor
@@ -24,7 +24,6 @@ def get_movie_image(movie_id):
     response = requests.get(searchURL)
     data = response.json()
     if 'poster_path' in data and data['poster_path'] != None:
-        print(data['poster_path'])
         return IMG_URL + str(data['poster_path'])
     else:
         # if no movie image found, replace with a placeholder png

@@ -27,7 +27,7 @@ def home():
     current_date = datetime.now()
     # get last month's date in order to give the currently popular movies
     last_month = current_date + dateutil.relativedelta.relativedelta(years=-1)
-    cursor.execute("select m.movie_id, title, overview, popularity, release_date, runtime, vote_average from (select distinct movies.movie_id, avg(rating) as avg_rating from ratings join movies on movies.movie_id = ratings.movie_id where rating_date >= %s group by movies.movie_id order by count(movies.movie_id)) as m join movies on movies.movie_id = m.movie_id where avg_rating > 3.5 LIMIT 10", (last_month))
+    cursor.execute("select movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from movies where year(release_date) > 2012 order by popularity desc LIMIT 10")
     trending = cursor.fetchall()
     cursor.execute("select movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from movies join ratings on movies.movie_id = ratings.movie_id order by rating_date desc limit 10")
     latest = cursor.fetchall()
@@ -63,6 +63,9 @@ def search():
         if year_start != '':
             filtering_query += ' AND year(release_date) >= %s'
             parameters.append(year_start)
+        if year_end != '':
+            filtering_query += ' AND year(release_date) <= %s'
+            parameters.append(year_end)
         if avg_vote != '':
             filtering_query += ' AND vote_average >= %s'
             parameters.append(avg_vote)
@@ -98,7 +101,7 @@ def movie_info(movie_id=None):
         return redirect(url_for('auth.login'))
     if request.method == 'POST':
         rating = request.form.get('rating')
-        cursor.execute('INSERT INTO ratings(user_id, movie_id, rating, rating_date) VALUES (%s,%s,%s,%s)',(session['id'], movie_id, rating, datetime.now())) 
+        cursor.execute('INSERT INTO ratings(user_id, movie_id, rating, rating_date) VALUES (%s,%s,%s,%s) ON DUPLICATE KEY UPDATE rating = %s',(session['id'], movie_id, rating, datetime.now(), rating)) 
         connection.commit()
         session['ratings_provided'] += 1
         flash('Rating updated!')
@@ -119,29 +122,39 @@ def recommendation(action = None):
     if 'username' not in session:
         flash('Please login first!')
         return redirect(url_for('auth.login'))
-    if session['ratings_provided'] < 5:
-            flash('Please provide at least 5 ratings before you can generate any recommendations or see your data!')
-            return redirect(url_for('views.search'))
+
     if action == 'update':
+        if session['ratings_provided'] < 5:
+            flash('Please provide at least 5 ratings before you can generate any recommendations!')
+            return redirect(url_for('views.search'))
+
+        cursor.execute('DELETE FROM prev_rec where user_id = %s and movie_id > 0', session['id'])
+        connection.commit()
+
+        cursor.execute('DELETE FROM cur_rec where user_id = %s and movie_id > 0', session['id'])
+        connection.commit()
+
         gen_recs = generate_recommendations(session['id'])
         for rec in gen_recs:
             cursor.execute("INSERT INTO cur_rec(user_id, movie_id, have_watched) VALUES (%s,%s,%s)", (session['id'], rec, 0))
             connection.commit()
-        for rec in gen_recs:
-                rec['img_url'] = get_movie_image(rec['movie_id']) 
-        return render_template('recommendation.html', search_results = gen_recs, title = 'New recommendations generated! MAGIC!')
+
     elif action == 'previous':
         cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from prev_rec join users on prev_rec.user_id = users.user_id join movies on movies.movie_id = prev_rec.movie_id where users.user_id = %s', session['id'])
         prev_recs = cursor.fetchall()
         for rec in prev_recs:
                 rec['img_url'] = get_movie_image(rec['movie_id'])   
         return render_template('recommendation.html', search_results = prev_recs, title = 'Here are some older recommendations')
+
+
     elif action == 'ratings':
         cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from ratings join users on ratings.user_id = users.user_id join movies on movies.movie_id = ratings.movie_id where users.user_id = %s', session['id'])
         prev_ratings = cursor.fetchall()
         for rec in prev_ratings:
                 rec['img_url'] = get_movie_image(rec['movie_id'])
-        return render_template('recommendation.html', search_results = prev_ratings, title = 'Movies you have rated previously')            
+        return render_template('recommendation.html', search_results = prev_ratings, title = 'Movies you have rated previously')  
+
+
     rec_query="select * from users join cur_rec on users.user_id = cur_rec.user_id where users.user_id = %s"
     cursor.execute(rec_query, session['id'])
     mov_recs = cursor.fetchall()
@@ -155,7 +168,7 @@ def user_visualization():
         flash('Please login first!')
         return redirect(url_for('auth.login'))
     if session['ratings_provided'] < 5:
-            flash('Please provide at least 5 ratings before you can generate any recommendations or see your data!')
+            flash('Please provide at least 5 ratings before you can view your user analytics!')
             return redirect(url_for('views.search'))
     pie1 = userGenrePie()
     bar1 = userCompareBar()

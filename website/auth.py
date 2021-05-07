@@ -38,6 +38,7 @@ def logout():
     session.pop('logged_in', None)
     session.pop('id', None)
     session.pop('username', None)
+    session.pop('ratings_provided', None)
     flash('You have logged out!', category='success')
     return redirect(url_for('auth.login'))
 
