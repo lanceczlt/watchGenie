@@ -11,7 +11,7 @@ IMG_URL = 'https://image.tmdb.org/t/p/w500'
 def connect():
     try:
         connect = pymysql.connect(
-        user = 'root', password = 'password', host = 'localhost', database = 'watchGenie',
+        user = 'root', password = 'password', host = 'localhost', database = 'movieGenie',
         )
         cursor = connect.cursor(pymysql.cursors.DictCursor)
         return connect, cursor

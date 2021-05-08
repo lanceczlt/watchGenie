@@ -14,68 +14,18 @@ genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance',
 
 def userGenrePie():
     user_id = session['id']
-    cursor.execute("SELECT genre_name FROM movies JOIN ratings ON movies.movie_id = ratings.movie_id JOIN users ON users.user_id = ratings.user_id JOIN movie_genre ON movies.movie_id = movie_genre.movie_id JOIN genres ON movie_genre.genre_id = genres.genre_id WHERE users.user_id = %s",(user_id))
-    genresListDict = cursor.fetchall()
-    genres = []
-    for element in genresListDict:
-        genres.append(element['genre_name'])
+    cursor.execute("SELECT genre_name, count(movies.movie_id) as cnt from movies join movie_genre as mg on movies.movie_id = mg.movie_id join genres on mg.genre_id = genres.genre_id join ratings on movies.movie_id = ratings.movie_id where user_id = %s group by genre_name", (user_id)) 
+    genresCountDict = cursor.fetchall()
+
     
-    animationCount = genres.count('Animation')
-    comedyCount = genres.count('Comedy')
-    familyCount = genres.count('Family')
-    adventureCount = genres.count('Adventure')
-    fantasyCount = genres.count('Fantasy')
-    romanceCount = genres.count('Romance')
-    dramaCount = genres.count('Drama')
-    actionCount = genres.count('Action')
-    crimeCount = genres.count('Crime')
-    thrillerCount = genres.count('Thriller')
-    horrorCount = genres.count('Horror')
-    historyCount = genres.count('History')
-    sciencefictionCount = genres.count('Science Fiction')
-    mysteryCount = genres.count('Mystery')
-    warCount = genres.count('War')
-    foreignCount = genres.count('Foreign')
-    musicCount = genres.count('Music')
-    documentaryCount = genres.count('Documentary')
-    westernCount = genres.count('Western')
-    tvmovieCount = genres.count('TV Movie')
-
-    genreCountList = [
-        animationCount, 
-        comedyCount, 
-        familyCount, 
-        adventureCount, 
-        fantasyCount, 
-        romanceCount, 
-        dramaCount, 
-        actionCount, 
-        crimeCount, 
-        thrillerCount, 
-        horrorCount, 
-        historyCount, 
-        sciencefictionCount, 
-        mysteryCount, 
-        warCount, 
-        foreignCount, 
-        musicCount, 
-        documentaryCount, 
-        westernCount, 
-        tvmovieCount
-    ]
-
-    copyGenreList = genreList.copy()
-
-    index = 0
-    while index < len(copyGenreList):
-        if genreCountList[index] == 0:
-            genreCountList.pop(index)
-            copyGenreList.pop(index)
-            index = index - 1
-        index = index + 1
+    userGenreList = []
+    userGenreCountList = []
+    for element in genresCountDict:
+        userGenreList.append(element['genre_name'])
+        userGenreCountList.append(element['cnt'])
 
     #pie chart
-    d = {'Genre': copyGenreList, 'Count': genreCountList}
+    d = {'Genre': userGenreList, 'Count': userGenreCountList}
     df = pd.DataFrame(data=d)
     fig = px.pie(df, values = 'Count', names = 'Genre', template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
     fig.update_layout(height = 600, width = 1400, title_text="Your Genres")
@@ -242,42 +192,6 @@ def userBubbleChart():
     df = pd.DataFrame(data = d)
     fig = px.scatter(df, x = 'watchGenieRating', y = 'tmdbRating', size = 'userRating', hover_name = 'Title', log_x = True, size_max = 60)
     fig.update_layout(height = 600, width = 1400, title_text="Your Bubble Graph", template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
-    graphJSON = plotly.io.to_json(fig)
-    return graphJSON
-
-def genrePopularityGraph(): #NOT FUNCTIONAL
-    #Genre Popularity over time
-    cursor.execute( #may need to change "month" when dates are added to database
-        "SELECT count(rating), genre, rating_date FROM ratings JOIN movies JOIN genres JOIN movie_genre WHERE ratings.movie_id = movies.movie_id AND movies.movie_id = movie_genre.movie_id AND movie_genre.genre_id = genres.genre_id"
-    )
-    ratingCountPerGenreMonth = cursor.fetchall()
-    #may need to group data
-    ratingCount = []
-    genreCount = []
-    monthCount = []
-    for genre in ratingCountPerGenreMonth:
-        ratingCount.append(genre[0])
-        genreCount.append(genre[1])
-        dateCount.append(genre[2])
-    df3 = {'ratingCount' : ratingCount, 'genre' : genreCount, 'date' : dateCount} 
-    fig4 = px.line(df3, x = 'date', y = 'ratingCount', color = 'genre')
-    return None
-
-def movie_popularity_over_time(movie_id):
-    cursor.execute(
-        "SELECT count(rating), rating_date FROM ratings JOIN movies WHERE movie_title = movies.title AND movies.movie_id = ratings.movie_id AND movies.movie_id = %s", (movie_id)
-    )
-    movieRatingCountAndDate = cursor.fetchall()
-    movieRatingCount = []
-    ratingDate = []
-    for rd in movieRatingCountAndDate:
-        movieRatingCount.append(rd['rating'])
-        ratingDate.append(rd['rating_date'])
-    d = {'Rating Count' : movieRatingCount, 'Date' : ratingDate}
-    df = pd.DataFrame(data = d)
-    fig = px.line(df, x = 'date', y = 'Rating Count', template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
-    fig.update_layout(height = 600, width = 1400) #can change dimensions
-    fig.update_layout(yaxis = {'visible': False, 'showticklabels': True}) #hide y-axis
     graphJSON = plotly.io.to_json(fig)
     return graphJSON
 
