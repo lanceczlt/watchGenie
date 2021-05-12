@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS genres(
    genre_id   INTEGER  NOT NULL PRIMARY KEY 
   ,genre_name VARCHAR(15) NOT NULL
 );
+
 INSERT INTO genres(genre_id,genre_name) VALUES
  (16,'Animation')
 ,(35,'Comedy')

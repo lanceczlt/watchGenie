@@ -14,68 +14,18 @@ genreList = ['Animation', 'Comedy', 'Family', 'Adventure', 'Fantasy', 'Romance',
 
 def userGenrePie():
     user_id = session['id']
-    cursor.execute("SELECT genre_name FROM movies JOIN ratings ON movies.movie_id = ratings.movie_id JOIN users ON users.user_id = ratings.user_id JOIN movie_genre ON movies.movie_id = movie_genre.movie_id JOIN genres ON movie_genre.genre_id = genres.genre_id WHERE users.user_id = %s",(user_id))
-    genresListDict = cursor.fetchall()
-    genres = []
-    for element in genresListDict:
-        genres.append(element['genre_name'])
+    cursor.execute("SELECT genre_name, count(movies.movie_id) as cnt from movies join movie_genre as mg on movies.movie_id = mg.movie_id join genres on mg.genre_id = genres.genre_id join ratings on movies.movie_id = ratings.movie_id where user_id = %s group by genre_name", (user_id)) 
+    genresCountDict = cursor.fetchall()
+
     
-    animationCount = genres.count('Animation')
-    comedyCount = genres.count('Comedy')
-    familyCount = genres.count('Family')
-    adventureCount = genres.count('Adventure')
-    fantasyCount = genres.count('Fantasy')
-    romanceCount = genres.count('Romance')
-    dramaCount = genres.count('Drama')
-    actionCount = genres.count('Action')
-    crimeCount = genres.count('Crime')
-    thrillerCount = genres.count('Thriller')
-    horrorCount = genres.count('Horror')
-    historyCount = genres.count('History')
-    sciencefictionCount = genres.count('Science Fiction')
-    mysteryCount = genres.count('Mystery')
-    warCount = genres.count('War')
-    foreignCount = genres.count('Foreign')
-    musicCount = genres.count('Music')
-    documentaryCount = genres.count('Documentary')
-    westernCount = genres.count('Western')
-    tvmovieCount = genres.count('TV Movie')
-
-    genreCountList = [
-        animationCount, 
-        comedyCount, 
-        familyCount, 
-        adventureCount, 
-        fantasyCount, 
-        romanceCount, 
-        dramaCount, 
-        actionCount, 
-        crimeCount, 
-        thrillerCount, 
-        horrorCount, 
-        historyCount, 
-        sciencefictionCount, 
-        mysteryCount, 
-        warCount, 
-        foreignCount, 
-        musicCount, 
-        documentaryCount, 
-        westernCount, 
-        tvmovieCount
-    ]
-
-    copyGenreList = genreList.copy()
-
-    index = 0
-    while index < len(copyGenreList):
-        if genreCountList[index] == 0:
-            genreCountList.pop(index)
-            copyGenreList.pop(index)
-            index = index - 1
-        index = index + 1
+    userGenreList = []
+    userGenreCountList = []
+    for element in genresCountDict:
+        userGenreList.append(element['genre_name'])
+        userGenreCountList.append(element['cnt'])
 
     #pie chart
-    d = {'Genre': copyGenreList, 'Count': genreCountList}
+    d = {'Genre': userGenreList, 'Count': userGenreCountList}
     df = pd.DataFrame(data=d)
     fig = px.pie(df, values = 'Count', names = 'Genre', template='plotly_dark').update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)','paper_bgcolor': 'rgba(0, 0, 0, 0)'})
     fig.update_layout(height = 600, width = 1400, title_text="Your Genres")
@@ -224,7 +174,7 @@ def userBubbleChart():
     user_id = session['id']
     #bubble chart (y-axis: watchgenie avg rating, x-axiz: imdb avg rating, circle size: user rating)
     cursor.execute(
-        "SELECT m1.title, t2.rating, avg(r1.rating) as user_base_avg, m1.vote_average/2 as tmdb_avg FROM movies as m1 JOIN (SELECT m2.movie_id, r2.rating FROM movies as m2 JOIN ratings as r2 ON m2.movie_id = r2.movie_id JOIN users ON r2.user_id = users.user_id WHERE users.user_id = %s) as t2 ON m1.movie_id = t2.movie_id JOIN ratings as r1 ON m1.movie_id = r1.movie_id GROUP BY (m1.movie_id)",(user_id)
+        "SELECT m1.title, t2.rating, avg(r1.rating) as user_base_avg, m1.vote_average as tmdb_avg FROM movies as m1 JOIN (SELECT m2.movie_id, r2.rating FROM movies as m2 JOIN ratings as r2 ON m2.movie_id = r2.movie_id JOIN users ON r2.user_id = users.user_id WHERE users.user_id = %s) as t2 ON m1.movie_id = t2.movie_id JOIN ratings as r1 ON m1.movie_id = r1.movie_id GROUP BY (m1.movie_id)",(user_id)
     )
     bubbleAllList = cursor.fetchall()
     movieTitles = []

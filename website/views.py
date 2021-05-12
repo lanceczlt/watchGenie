@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from .db_connection import connect, get_movie_image
-from .recommend import generate_recommendations
+from .recommend import generate_recommendations, get_movie_recommendations_content
 from .visualize import userBubbleChart, userCompareBar, userGenrePie
 from datetime import datetime
 import dateutil.relativedelta
@@ -133,8 +133,8 @@ def recommendation(action = None):
 
         cursor.execute('DELETE FROM cur_rec where user_id = %s and movie_id > 0', session['id'])
         connection.commit()
-
-        gen_recs = generate_recommendations(session['id'])
+        gen_recs = get_movie_recommendations_content(session['id'])
+        # gen_recs = generate_recommendations(session['id'])
         for rec in gen_recs:
             cursor.execute("INSERT INTO cur_rec(user_id, movie_id, have_watched) VALUES (%s,%s,%s)", (session['id'], rec, 0))
             connection.commit()
@@ -142,19 +142,20 @@ def recommendation(action = None):
     elif action == 'previous':
         cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from prev_rec join users on prev_rec.user_id = users.user_id join movies on movies.movie_id = prev_rec.movie_id where users.user_id = %s', session['id'])
         prev_recs = cursor.fetchall()
-        for rec in prev_recs:
-                rec['img_url'] = get_movie_image(rec['movie_id'])   
-        if not rec:
+        if prev_recs:
+            for rec in prev_recs:
+                    rec['img_url'] = get_movie_image(rec['movie_id'])   
+        else:
             flash('Hmm. It seems like you do not have any past recommendations. Click Generate new recommendations!')
         return render_template('recommendation.html', search_results = prev_recs, title = 'Here are some older recommendations')
-
 
     elif action == 'ratings':
         cursor.execute('select distinct movies.movie_id, title, overview, popularity, release_date, runtime, vote_average from ratings join users on ratings.user_id = users.user_id join movies on movies.movie_id = ratings.movie_id where users.user_id = %s', session['id'])
         prev_ratings = cursor.fetchall()
-        for rec in prev_ratings:
-                rec['img_url'] = get_movie_image(rec['movie_id'])
-        if not rec:
+        if prev_ratings:
+            for rec in prev_ratings:
+                    rec['img_url'] = get_movie_image(rec['movie_id'])
+        else:
             flash('Hmm. It seems like you have not rated any movies. Click Search to get started!')
         return render_template('recommendation.html', search_results = prev_ratings, title = 'Movies you have rated previously')  
 
@@ -171,6 +172,7 @@ def user_visualization():
     if 'username' not in session:
         flash('Please login first!')
         return redirect(url_for('auth.login'))
+
     if session['ratings_provided'] < 5:
             flash('Please provide at least 5 ratings before you can view your user analytics!')
             return redirect(url_for('views.search'))

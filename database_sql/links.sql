@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS links(
   ,tmdb_id  INTEGER NOT NULL
   ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
 );
+
 INSERT IGNORE INTO links(movie_id,imdb_id,tmdb_id) VALUES
  (1,114709,862)
 ,(2,113497,8844)

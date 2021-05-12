@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS movie_tag(
-   movie_id INTEGER  NOT NULL
-  ,tag_id   INTEGER  NOT NULL
-  ,PRIMARY KEY(movie_id,tag_id)
+   movie_id INTEGER NOT NULL
+  ,tag_id   INTEGER NOT NULL
+  ,PRIMARY KEY(movie_id, tag_id)
   ,FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
   ,FOREIGN KEY (tag_id) REFERENCES tags(tag_id) ON DELETE CASCADE
 );
 
-INSERT IGNORE INTO movie_tag(movie_id,tag_id) VALUES
+INSERT IGNORE INTO movie_tag VALUES
  (862,931)
 ,(862,4290)
 ,(862,5202)
@@ -507,6 +507,7 @@ INSERT IGNORE INTO movie_tag(movie_id,tag_id) VALUES
 ,(755,1664)
 ,(755,2483)
 ,(755,2492);
+
 INSERT IGNORE INTO movie_tag(movie_id,tag_id) VALUES
  (755,3133)
 ,(755,3649)

@@ -13,6 +13,7 @@ def connect():
         connect = pymysql.connect(
         user = 'root', password = 'password', host = 'localhost', database = 'watchGenie',
         )
+        # turn cursor fetches into a list of dictionaries. much easier and clearer access of information
         cursor = connect.cursor(pymysql.cursors.DictCursor)
         return connect, cursor
     except:

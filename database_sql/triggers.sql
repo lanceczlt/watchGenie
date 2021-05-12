@@ -1,8 +1,10 @@
+
 DELIMITER $$
-CREATE TRIGGER tr_ins_rating 
-BEFORE INSERT ON ratings FOR EACH ROW
+CREATE TRIGGER keepRecHistory
+BEFORE DELETE ON cur_rec
+FOR EACH ROW
 BEGIN
-    DELETE FROM ratings WHERE user_id = NEW.user_id AND movie_id = NEW.movie_id ;
+    INSERT INTO prev_rec VALUES (old.user_id, old.movie_id);
 END;
 $$
 DELIMITER ;
