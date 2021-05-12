@@ -1,6 +1,7 @@
 from flask_testing import TestCase
 from main import app
 
+
 import unittest
 
 
@@ -30,8 +31,35 @@ class FlaskTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get('/visualization', content_type='application/json')
         self.assertFalse(response.is_json)
-        
 
+    def test_visualization_requires_login(self):
+        tester = app.test_client(self)
+        response = tester.get('/visualization', follow_redirects=True)
+        self.assertTrue(b'Please login first!' in response.data)
+        
+    #
+    def test_correct_visualization_graph1(self):
+        tester = app.test_client(self)
+        tester.post('/login', data=dict(email="scescotti0@domainmarket.com",password="awPcsz5IzS6x"), follow_redirects = True)
+        response = tester.get('/visualization', follow_redirects=True) 
+        print(response.data)
+        self.assertTrue(b'var graph1' in response.data)
+
+    def test_correct_visualization_graph2(self):
+        tester = app.test_client(self)
+        tester.post('/login', data=dict(email="scescotti0@domainmarket.com",password="awPcsz5IzS6x"), follow_redirects = True)
+        response = tester.get('/visualization', follow_redirects=True) 
+        print(response.data)
+        self.assertTrue(b'var graph2' in response.data)
+
+    def test_correct_visualization_graph3(self):
+        tester = app.test_client(self)
+        tester.post('/login', data=dict(email="scescotti0@domainmarket.com",password="awPcsz5IzS6x"), follow_redirects = True)
+        response = tester.get('/visualization', follow_redirects=True) 
+        print(response.data)
+        self.assertTrue(b'var graph3' in response.data)
+
+     
 
 
 
