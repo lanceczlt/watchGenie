@@ -13,6 +13,7 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/recommendation', content_type='html/text')
         self.assertEqual(response.status_code, 308)
     
+    #tests the need to login for recommendation
     def test_recommendation_requires_login(self):
         tester = app.test_client(self)
         response = tester.get('/recommendation', follow_redirects=True)

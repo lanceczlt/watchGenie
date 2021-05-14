@@ -26,11 +26,13 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/search', content_type='html/text')
         self.assertTrue(b'If not click the link.' in response.data)
 
+    #tests the need to login for search
     def test_search_requires_login(self):
         tester = app.test_client(self)
         response = tester.get('/search', follow_redirects=True)
         self.assertTrue(b'Please login first!' in response.data)
 
+    #tests the need to login for result
     def test_recommendation_requires_login(self):
         tester = app.test_client(self)
         response = tester.get('/result', follow_redirects=True)

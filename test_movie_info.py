@@ -19,6 +19,7 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/movie_info', content_type='html/text')
         self.assertEqual(response.content_type, "text/html; charset=utf-8")
     
+    #tests the need to login for movie_info
     def test_movie_info_requires_login(self):
         tester = app.test_client(self)
         response = tester.get('/movie_info', follow_redirects=True)
